@@ -20,7 +20,7 @@ object IndexPage {
             +"Portfolio"
         }
         p(classes = "portfolio__lead") {
-            +"Work, projects, and ideas — coming soon."
+            +"Я Илья. Здарова."
         }
     }
 }

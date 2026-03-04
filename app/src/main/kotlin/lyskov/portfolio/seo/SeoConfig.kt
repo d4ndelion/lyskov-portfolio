@@ -6,7 +6,7 @@ package lyskov.portfolio.seo
  */
 object SeoConfig {
     /** Scheme + host, no trailing slash. */
-    const val DOMAIN = "https://ilyskov.site/"
+    const val DOMAIN = "https://ilyskov.site"
 
     /** Human-readable site name used in OG tags. */
     const val SITE_NAME = "Lyskov Portfolio"
