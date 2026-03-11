@@ -1,5 +1,6 @@
 plugins {
     alias(libs.plugins.jvm)
+    alias(libs.plugins.kotlin.serialization)
     application
 }
 
@@ -9,6 +10,7 @@ repositories {
 
 dependencies {
     implementation(libs.kotlinx.html)
+    implementation(libs.kotlinx.serialization.json)
 }
 
 java {

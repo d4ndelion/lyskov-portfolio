@@ -5,17 +5,112 @@
     "locationString": "Москва",
     "socialMediaLinks": {
       "telegram": {
-        "icon" : "/vector/telegram-icon.svg",
-        "link" : ""
+        "icon": "/vector/telegram-icon.svg",
+        "link": "https://t.me/ya_ilya_zdarova"
       },
       "linkedin": {
-        "icon" : "/vector/linkedin-icon.svg",
-        "link" : "https://www.linkedin.com/in/ilya-lyskov/"
+        "icon": "/vector/linkedin-icon.svg",
+        "link": "https://www.linkedin.com/in/ilya-lyskov/"
       },
       "max": {
-        "icon" : "/vector/max-icon.svg",
-        "link" : ""
+        "icon": "/vector/max-icon.svg",
+        "link": "https://max.ru/u/f9LHodD0cOLMfAw2socpHhE_zv6tMnIFaIYLuxsno1BywfREBHjfVjgPPrU"
+      }
+    },
+    "emailLink": "mailto:mr.ansuz@gmail.com",
+    "cvLink": ""
+  },
+  "sections": [
+    {
+      "type": "hero",
+      "avatar": "/image/ilya-flower.png",
+      "name": "Илья Лысков",
+      "role": "Продуктовый дизайнер",
+      "experience": "5 лет опыта",
+      "bio": "Проектирую интерфейсы с заботой о пользователе, выгодой для бизнеса, и понятной разработке",
+      "videoButton": {
+        "label": "Рассказ о себе",
+        "duration": "0:40",
+        "href": ""
+      }
+    },
+    {
+      "type": "caseList",
+      "items": [
+        {
+          "title": "SAAS-система для ведения процессов банкротства BFL",
+          "description": "С нуля погрузился в сложный домен и спроектировал B2B-систему для ведения банкротства физических лиц. Получил крутой фидбек от пользователей и уложился в короткие сроки",
+          "tags": ["2025", "LegalTech", "Web"],
+          "href": "",
+          "cover": ""
+        },
+        {
+          "title": "Спроектировал MVP приложения для бизнес-нетворкинга",
+          "description": "Разработал концепцию, исследовал пользователей и спроектировал полноценный MVP мобильного приложения для деловых знакомств",
+          "tags": ["2026", "—", "Mobile"],
+          "href": "",
+          "cover": ""
+        },
+        {
+          "title": "Дизайн система для Dispex Web",
+          "description": "Построил масштабируемую дизайн-систему для B2B веб-продукта в PropTech — от токенов до готовых компонентов",
+          "tags": ["2026", "PropTech", "Web"],
+          "href": "",
+          "cover": ""
+        },
+        {
+          "title": "Успешное тестовое в МТС Web Services",
+          "description": "Проектировал интерфейс приглашения пользователей в проект для бигтеха. Получил положительные отзывы от пользователей и команды найма",
+          "tags": ["2025", "Telecom", "Web"],
+          "href": "",
+          "cover": ""
+        }
+      ]
+    },
+    {
+      "type": "divider",
+      "subBadge": "а еще...",
+      "heading": "использую и проверяю свои навыки вне работы"
+    },
+    {
+      "type": "extraCaseList",
+      "items": [
+        {
+          "title": "Моя сбалансированная версия «Монополии»",
+          "description": "Переработал экономику и баланс игры, добавил новые механики и встроил в неё множество наших с друзьями локальных мемов",
+          "year": "2026",
+          "href": "",
+          "image": ""
+        },
+        {
+          "title": "Выиграл в Хакатоне по разработке приложения",
+          "description": "Выступал в команде главным дизайнером: разработал запоминающийся визуал и грамотно презентовал концепт, благодаря чему проект запомнился жюри :)",
+          "year": "2022",
+          "href": "",
+          "image": "/image/certificate.png"
+        }
+      ]
+    },
+    {
+      "type": "outro",
+      "about": {
+        "subBadge": "ну а вообще...",
+        "aboutPhotos": [
+          "/image/ilya-with-flowers.png", "/image/ilya-thinking.png", "/image/ilya-flower.png", "/image/ilya-cowboy.png"
+        ],
+        "nick": "я Илья, здарова!",
+        "nickSub": "(такой ник можно встретить во всех моих соцсетях)",
+        "paragraphs": [
+          "Выписываю свои наблюдения в tg-посты, снимался в кулинарных видео на yt, очень люблю фоткаться",
+          "Завайбкодил бота"
+        ],
+        "footnote": "На форуме сервера по GTA San Andreas Multiplayer был дизайнером графики всего сервера (ну, это типо было круто!)"
+      },
+      "goodbye": {
+        "heading": "cпасибо за уделенное время!",
+        "sub": "буду рад посотрудничать с вами",
+        "email": "mr.ansuz@gmail.com"
       }
     }
-  }
+  ]
 }
