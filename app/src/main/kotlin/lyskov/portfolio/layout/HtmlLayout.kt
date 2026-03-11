@@ -8,7 +8,7 @@ import kotlinx.html.lang
 import kotlinx.html.link
 import kotlinx.html.main
 import kotlinx.html.meta
-import kotlinx.html.stream.createHTML
+import kotlinx.html.stream.appendHTML
 import kotlinx.html.title
 import lyskov.portfolio.model.Page
 import lyskov.portfolio.seo.SeoConfig
@@ -24,50 +24,64 @@ import lyskov.portfolio.seo.SeoConfig
 fun renderPage(page: Page, content: FlowContent.() -> Unit): String {
     val canonicalUrl = "${SeoConfig.DOMAIN}${page.urlPath}"
 
-    return "<!DOCTYPE html>\n" + createHTML(prettyPrint = true).html {
-        lang = "en"
+    return buildString {
+        append("<!DOCTYPE html>\n")
+        appendHTML(prettyPrint = true).html {
+            lang = "en"
 
-        head {
-            meta(charset = "UTF-8")
-            meta(name = "viewport", content = "width=device-width, initial-scale=1.0")
+            head {
+                meta(charset = "UTF-8")
+                meta(name = "viewport", content = "width=device-width, initial-scale=1.0")
 
-            title(page.title)
-            meta(name = "description", content = page.description)
+                title(page.title)
+                meta(name = "description", content = page.description)
 
-            // ── Canonical ────────────────────────────────────────────────────
-            link(rel = "canonical", href = canonicalUrl)
+                // ── Canonical ────────────────────────────────────────────────────
+                link(rel = "canonical", href = canonicalUrl)
 
-            // ── Open Graph ───────────────────────────────────────────────────
-            ogMeta("og:type",        "website")
-            ogMeta("og:site_name",   SeoConfig.SITE_NAME)
-            ogMeta("og:title",       page.title)
-            ogMeta("og:description", page.description)
-            ogMeta("og:url",         canonicalUrl)
+                // ── Open Graph ───────────────────────────────────────────────────
+                ogMeta("og:type",        "website")
+                ogMeta("og:site_name",   SeoConfig.SITE_NAME)
+                ogMeta("og:title",       page.title)
+                ogMeta("og:description", page.description)
+                ogMeta("og:url",         canonicalUrl)
 
-            // ── Twitter card ─────────────────────────────────────────────────
-            meta(name = "twitter:card",        content = "summary")
-            meta(name = "twitter:site",        content = SeoConfig.TWITTER_HANDLE)
-            meta(name = "twitter:title",       content = page.title)
-            meta(name = "twitter:description", content = page.description)
+                // ── Twitter card ─────────────────────────────────────────────────
+                meta(name = "twitter:card",        content = "summary")
+                meta(name = "twitter:site",        content = SeoConfig.TWITTER_HANDLE)
+                meta(name = "twitter:title",       content = page.title)
+                meta(name = "twitter:description", content = page.description)
 
-            // ── Favicon ──────────────────────────────────────────────────────
-            link(rel = "icon", type = "image/x-icon", href = "/favicon.ico")
-            link(rel = "icon", type = "image/svg+xml", href = "/favicon.svg")
-            link(rel = "apple-touch-icon",    href = "/apple-touch-icon.png")
+                // ── Favicon ──────────────────────────────────────────────────────
+                link(rel = "icon", type = "image/x-icon", href = "/favicon.ico")
+                link(rel = "icon", type = "image/svg+xml", href = "/favicon.svg")
+                link(rel = "apple-touch-icon",    href = "/apple-touch-icon.png")
 
-            // ── Stylesheet ───────────────────────────────────────────────────
-            link(rel = "stylesheet", href = "/styles.css")
-        }
+                // ── Fonts ────────────────────────────────────────────────────────
+                link(rel = "preconnect", href = "https://fonts.googleapis.com")
+                link(rel = "preconnect", href = "https://fonts.gstatic.com") {
+                    attributes["crossorigin"] = ""
+                }
+                link(
+                    rel  = "stylesheet",
+                    href = "https://fonts.googleapis.com/css2?family=Onest:wght@400;500&display=swap",
+                )
 
-        body {
-            siteHeader(page.urlPath)
-
-            main(classes = "site-main") {
-                attributes["id"] = "main-content"
-                content()
+                // ── Stylesheet ───────────────────────────────────────────────────
+                link(rel = "stylesheet", href = "/styles.css")
             }
 
-            siteFooter()
+            body {
+                siteHeader(page.urlPath)
+
+                main(classes = "site-main") {
+                    attributes["id"] = "main-content"
+                    attributes["tabindex"] = "-1"
+                    content()
+                }
+
+                siteFooter()
+            }
         }
     }
 }

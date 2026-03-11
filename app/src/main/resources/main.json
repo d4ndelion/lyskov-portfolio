@@ -1,0 +1,21 @@
+{
+  "header": {
+    "logo": "/vector/il-logo.svg",
+    "dividerIcon": "/vector/star-divider.svg",
+    "locationString": "Москва",
+    "socialMediaLinks": {
+      "telegram": {
+        "icon" : "/vector/telegram-icon.svg",
+        "link" : ""
+      },
+      "linkedin": {
+        "icon" : "/vector/linkedin-icon.svg",
+        "link" : "https://www.linkedin.com/in/ilya-lyskov/"
+      },
+      "max": {
+        "icon" : "/vector/max-icon.svg",
+        "link" : ""
+      }
+    }
+  }
+}

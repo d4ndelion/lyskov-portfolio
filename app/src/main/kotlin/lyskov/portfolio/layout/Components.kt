@@ -1,72 +1,73 @@
 package lyskov.portfolio.layout
 
 import kotlinx.html.FlowContent
-import kotlinx.html.footer
-import kotlinx.html.header
-import kotlinx.html.li
-import kotlinx.html.nav
 import kotlinx.html.a
 import kotlinx.html.div
+import kotlinx.html.footer
+import kotlinx.html.header
+import kotlinx.html.img
 import kotlinx.html.span
-import kotlinx.html.ul
-import lyskov.portfolio.model.Page
-import lyskov.portfolio.registry.PageRegistry
-import lyskov.portfolio.seo.SeoConfig
 
 // ─── Header ───────────────────────────────────────────────────────────────────
 
-/**
- * Renders the accessible site header with skip-link and primary navigation.
- *
- * @param currentUrlPath  URL path of the page being rendered (used to mark active link).
- */
-fun FlowContent.siteHeader(currentUrlPath: String) {
+fun FlowContent.siteHeader(@Suppress("UNUSED_PARAMETER") currentUrlPath: String) {
     header(classes = "site-header") {
-        a(href = "#main-content", classes = "skip-link") { +"Skip to content" }
+        a(href = "#main-content", classes = "skip-link") { +"Перейти к содержимому" }
 
-        div(classes = "site-header__inner") {
-            a(href = "/", classes = "site-header__logo") {
-                +SeoConfig.SITE_NAME
+        div(classes = "site-header__body") {
+
+            // ── Left: logo + location ─────────────────────────────────────────
+            div(classes = "site-header__left") {
+                img(src = "/vector/il-logo.svg", alt = "IL", classes = "site-header__logo")
+
+                div(classes = "site-header__location") {
+                    div(classes = "site-header__divider") {
+                        img(src = "/vector/star-divider.svg", alt = "")
+                    }
+                    span(classes = "site-header__city") { +"Москва" }
+                }
             }
 
-            siteNav(currentUrlPath)
-        }
-    }
-}
-
-// ─── Navigation ───────────────────────────────────────────────────────────────
-
-private fun FlowContent.siteNav(currentUrlPath: String) {
-    nav(classes = "site-nav") {
-        attributes["aria-label"] = "Primary navigation"
-
-        ul(classes = "site-nav__list") {
-            PageRegistry.all.forEach { page ->
-                val isCurrent = page.urlPath == currentUrlPath
-                li(classes = "site-nav__item") {
-                    a(
-                        href    = page.urlPath,
-                        classes = "site-nav__link" + if (isCurrent) " site-nav__link--current" else "",
-                    ) {
-                        if (isCurrent) attributes["aria-current"] = "page"
-                        +navLabel(page)
+            // ── Right: icons + email/cv ───────────────────────────────────────
+            div(classes = "site-header__right") {
+                div(classes = "site-header__icon-group") {
+                    a(href = "https://t.me/ansuzdesign", classes = "site-header__icon-btn", target = "_blank") {
+                        attributes["aria-label"] = "Telegram"
+                        attributes["rel"] = "noopener"
+                        img(src = "/vector/telegram-icon.svg", alt = "")
                     }
+                    a(href = "https://www.linkedin.com/in/ilya-lyskov/", classes = "site-header__icon-btn", target = "_blank") {
+                        attributes["aria-label"] = "LinkedIn"
+                        attributes["rel"] = "noopener"
+                        img(src = "/vector/linkedin-icon.svg", alt = "")
+                    }
+                    a(href = "https://max.ru/ansuzdesign", classes = "site-header__icon-btn site-header__icon-btn--max", target = "_blank") {
+                        attributes["aria-label"] = "MAX"
+                        attributes["rel"] = "noopener"
+                        img(src = "/vector/max-icon.svg", alt = "")
+                    }
+                }
+
+                span(classes = "site-header__sep") { +"/" }
+
+                div(classes = "site-header__links") {
+                    a(href = "mailto:mr.ansuz@gmail.com", classes = "site-header__link") { +"Email" }
+                    div(classes = "site-header__divider") {
+                        img(src = "/vector/star-divider.svg", alt = "")
+                    }
+                    a(href = "/cv.pdf", classes = "site-header__link") { +"CV" }
                 }
             }
         }
     }
 }
 
-/** Returns a short human-readable label for the nav link. */
-private fun navLabel(page: Page): String = when (page.urlPath) {
-    "/" -> "Portfolio"
-    else -> page.title.substringBefore("—").substringBefore("-").trim()
-}
-
 // ─── Footer ───────────────────────────────────────────────────────────────────
 
 fun FlowContent.siteFooter() {
     footer(classes = "site-footer") {
-        span { +"© ${java.time.Year.now().value} ${SeoConfig.SITE_NAME}" }
+        div(classes = "site-footer__body") {
+            span(classes = "site-footer__copy") { +"© ilya lyskov, ${java.time.Year.now().value}" }
+        }
     }
 }
