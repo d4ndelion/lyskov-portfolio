@@ -415,8 +415,10 @@ a {
 /* ── Case sections ────────────────────────────────────────────────────────── */
 
 /*
- * Folder shape = tab ear (top-left) + shoulder (top-right) + body.
- * Body starts lower than the tab to recreate the Figma "folder" silhouette.
+ * Folder shape split into 3 layers:
+ * 1) main body rectangle,
+ * 2) top-left tab,
+ * 3) pale inner/back strip on the right.
  */
 .case-body {
   height: calc(1008px + var(--folder-tab-h));
@@ -436,34 +438,35 @@ a {
 
 .case-card__body {
   position: absolute;
-  left: 0;
-  right: 0;
-  top: var(--folder-tab-h);
-  bottom: 0;
+  inset: var(--folder-tab-h) 0 0;
   border-radius: 40px;
   box-shadow: inset 0 -4px 12px #f8fafb;
-  pointer-events: none;
-}
-
-.case-card__back {
-  position: absolute;
-  left: 34%;
-  right: 0;
-  top: 0;
-  height: var(--folder-tab-h);
-  border-radius: 40px 40px 0 0;
-  opacity: 0.48;
+  z-index: 1;
   pointer-events: none;
 }
 
 .case-card__tab {
   position: absolute;
   left: 0;
-  width: 36%;
   top: 0;
+  width: 34%;
   height: var(--folder-tab-h);
-  border-radius: 40px 40px 0 0;
-  opacity: 0.48;
+  border-radius: 40px 18px 0 0;
+  clip-path: polygon(0 0, 89% 0, 100% 100%, 0 100%);
+  z-index: 3;
+  pointer-events: none;
+}
+
+.case-card__back {
+  position: absolute;
+  left: 10%;
+  width: 90%;
+  top: calc(var(--folder-tab-h) * 2 / 3);
+  height: var(--folder-tab-h);
+  border-radius: 0 40px 0 0;
+  opacity: 0.38;
+  filter: brightness(1.08) saturate(0.9);
+  z-index: 2;
   pointer-events: none;
 }
 
@@ -475,6 +478,7 @@ a {
   bottom: 0;
   object-fit: cover;
   display: block;
+  z-index: 4;
   pointer-events: none;
 }
 
@@ -485,7 +489,7 @@ a {
   align-items: flex-start;
   width: 100%;
   position: relative;
-  z-index: 1;
+  z-index: 5;
 }
 
 .case-card__title-desc {

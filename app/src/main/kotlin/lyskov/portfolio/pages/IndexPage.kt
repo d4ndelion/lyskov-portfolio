@@ -113,7 +113,7 @@ object IndexPage {
 
                         // shoulder
                         div(classes = "case-card__back") {
-                            attributes["style"] = "background: ${case.color};"
+                            attributes["style"] = "background: color-mix(in srgb, ${case.color} 72%, white 28%);"
                         }
 
                         // tab
