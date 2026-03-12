@@ -415,13 +415,10 @@ a {
 /* ── Case sections ────────────────────────────────────────────────────────── */
 
 /*
- * Folder shape = tab ear (top-left) + shoulder (top-right) + body (full).
- * All live INSIDE .case-body so nothing clips outside .pg-section.
- *   .case-body height    = body 1008px + tab ear var(--folder-tab-h)
- *   .case-card__body     = full width, top 0, bottom 0 (covers entire card)
- *   .case-card__back     = left 28.9%, top ~3.58%, height ~5.96% (shoulder)
- *   .case-card__tab      = left 28.9%, top 0, height --folder-tab-h (rendered last → on top)
- * Render order: body → back → tab → cover → info (tab visually on top of body)
+ * Folder shape split into 3 layers:
+ * 1) main body rectangle,
+ * 2) top-left tab,
+ * 3) pale inner/back strip on the right.
  */
 .case-body {
   height: calc(1008px + var(--folder-tab-h));
@@ -434,46 +431,42 @@ a {
   height: 100%;
   display: flex;
   flex-direction: column;
-  gap: 60px;
-  align-items: center;
   justify-content: flex-end;
-  /* extra --folder-tab-h keeps 120px visual gap from the body top, not the tab top */
   padding: calc(120px + var(--folder-tab-h)) var(--page-pad) var(--page-pad);
   position: relative;
 }
 
-/* Folder body — gradient + shape, covers the entire card from top: 0 */
 .case-card__body {
   position: absolute;
-  left: 0;
-  right: 0;
-  top: 0;
-  bottom: 0;
-  border-radius: 0 40px 40px 40px;
-  box-shadow: inset 0px -4px 12px #F8FAFB;
+  inset: var(--folder-tab-h) 0 0;
+  border-radius: 40px;
+  box-shadow: inset 0 -4px 12px #f8fafb;
+  z-index: 1;
   pointer-events: none;
 }
 
-/* Shoulder overlay — subtle tint at top-right where tab meets body (≈5.96% of total height) */
-.case-card__back {
-  position: absolute;
-  left: 28.9%;
-  right: 0;
-  top: var(--folder-tab-h);
-  height: 60px;
-  opacity: 0.48;
-  pointer-events: none;
-}
-
-/* Folder tab ear — rendered AFTER body+back so it appears on top; left 28.9%, top 0 */
 .case-card__tab {
   position: absolute;
   left: 0;
-  width: 28.9%;
   top: 0;
+  width: 34%;
   height: var(--folder-tab-h);
-  border-radius: 8px 8px 0 0;
-  opacity: 0.48;
+  border-radius: 40px 18px 0 0;
+  clip-path: polygon(0 0, 89% 0, 100% 100%, 0 100%);
+  z-index: 3;
+  pointer-events: none;
+}
+
+.case-card__back {
+  position: absolute;
+  left: 10%;
+  width: 90%;
+  top: calc(var(--folder-tab-h) * 2 / 3);
+  height: var(--folder-tab-h);
+  border-radius: 0 40px 0 0;
+  opacity: 0.38;
+  filter: brightness(1.08) saturate(0.9);
+  z-index: 2;
   pointer-events: none;
 }
 
@@ -485,6 +478,7 @@ a {
   bottom: 0;
   object-fit: cover;
   display: block;
+  z-index: 4;
   pointer-events: none;
 }
 
@@ -495,7 +489,7 @@ a {
   align-items: flex-start;
   width: 100%;
   position: relative;
-  z-index: 1;
+  z-index: 5;
 }
 
 .case-card__title-desc {

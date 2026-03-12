@@ -102,66 +102,67 @@ object IndexPage {
     private fun FlowContent.renderCase(case: Case) {
         section(classes = "pg-section") {
             div(classes = "pg-section__body") {
+                div(classes = "case-body") {
+                    div(classes = "case-card") {
 
-                div(classes = "case-card") {
-
-                    // body (gradient)
-                    div(classes = "case-card__body") {
-                        attributes["style"] =
-                            "background: linear-gradient(180deg, ${case.color} 0%, ${case.colorEnd} 100%);"
-                    }
-
-                    // shoulder
-                    div(classes = "case-card__back") {
-                        attributes["style"] = "background: ${case.color};"
-                    }
-
-                    // tab
-                    div(classes = "case-card__tab") {
-                        attributes["style"] = "background: ${case.color};"
-                    }
-
-                    if (case.cover.isNotEmpty()) {
-                        img(
-                            src = case.cover,
-                            alt = "",
-                            classes = "case-card__cover"
-                        )
-                    }
-
-                    div(classes = "case-card__info") {
-
-                        div(classes = "case-card__title-desc") {
-
-                            p(classes = "case-card__title") {
-                                attributes["style"] = "color: ${case.textColor};"
-                                +case.title
-                            }
-
-                            p(classes = "case-card__desc") {
-                                attributes["style"] = "color: ${case.textColor};"
-                                +case.description
-                            }
+                        // body (gradient)
+                        div(classes = "case-card__body") {
+                            attributes["style"] =
+                                "background: linear-gradient(180deg, ${case.color} 0%, ${case.colorEnd} 100%);"
                         }
 
-                        div(classes = "case-card__bottom") {
+                        // shoulder
+                        div(classes = "case-card__back") {
+                            attributes["style"] = "background: color-mix(in srgb, ${case.color} 72%, white 28%);"
+                        }
 
-                            div(classes = "case-card__btn-slot") {
-                                if (case.href.isNotEmpty()) {
-                                    a(href = case.href, classes = "btn-case") {
-                                        img(src = Icons.CASE_ARROW, alt = "")
-                                        span { +"Смотреть кейс" }
-                                    }
+                        // tab
+                        div(classes = "case-card__tab") {
+                            attributes["style"] = "background: ${case.color};"
+                        }
+
+                        if (case.cover.isNotEmpty()) {
+                            img(
+                                src = case.cover,
+                                alt = "",
+                                classes = "case-card__cover"
+                            )
+                        }
+
+                        div(classes = "case-card__info") {
+
+                            div(classes = "case-card__title-desc") {
+
+                                p(classes = "case-card__title") {
+                                    attributes["style"] = "color: ${case.textColor};"
+                                    +case.title
+                                }
+
+                                p(classes = "case-card__desc") {
+                                    attributes["style"] = "color: ${case.textColor};"
+                                    +case.description
                                 }
                             }
 
-                            div(classes = "case-card__tags") {
-                                case.tags.forEachIndexed { i, label ->
-                                    span(
-                                        classes =
-                                            if (i == 0) "tag"
-                                            else "tag tag--muted"
-                                    ) { +label }
+                            div(classes = "case-card__bottom") {
+
+                                div(classes = "case-card__btn-slot") {
+                                    if (case.href.isNotEmpty()) {
+                                        a(href = case.href, classes = "btn-case") {
+                                            img(src = Icons.CASE_ARROW, alt = "")
+                                            span { +"Смотреть кейс" }
+                                        }
+                                    }
+                                }
+
+                                div(classes = "case-card__tags") {
+                                    case.tags.forEachIndexed { i, label ->
+                                        span(
+                                            classes =
+                                                if (i == 0) "tag"
+                                                else "tag tag--muted"
+                                        ) { +label }
+                                    }
                                 }
                             }
                         }
