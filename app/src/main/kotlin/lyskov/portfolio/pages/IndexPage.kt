@@ -104,21 +104,15 @@ object IndexPage {
             div(classes = "pg-section__body") {
                 div(classes = "case-body") {
                     div(classes = "case-card") {
-
-                        // body (gradient)
+                        // back (black, no clip — sits behind body)
+                        div(classes = "case-card__back") {
+                            attributes["style"] =
+                                "background: ${case.color};"
+                        }
+                        // body (gradient + clip-path folder shape)
                         div(classes = "case-card__body") {
                             attributes["style"] =
                                 "background: linear-gradient(180deg, ${case.color} 0%, ${case.colorEnd} 100%);"
-                        }
-
-                        // shoulder
-                        div(classes = "case-card__back") {
-                            attributes["style"] = "background: color-mix(in srgb, ${case.color} 72%, white 28%);"
-                        }
-
-                        // tab
-                        div(classes = "case-card__tab") {
-                            attributes["style"] = "background: ${case.color};"
                         }
 
                         if (case.cover.isNotEmpty()) {
@@ -256,8 +250,9 @@ object IndexPage {
         val header = ContentLoader.content.header
         section(classes = "pg-section pg-section--goodbye") {
             div(classes = "goodbye-body") {
-                // Funny gif — path to be filled by user
-                div(classes = "goodbye-gif")
+                div(classes = "goodbye-gif") {
+                    img(src = goodbye.goodbyeGif)
+                }
                 div(classes = "goodbye-text") {
                     p(classes = "goodbye-text__heading") { +goodbye.heading }
                     p(classes = "goodbye-text__sub") { +goodbye.sub }

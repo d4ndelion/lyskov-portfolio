@@ -1,6 +1,5 @@
 package lyskov.portfolio.generator
 
-import lyskov.portfolio.layout.Css
 import lyskov.portfolio.pages.IndexPage
 import lyskov.portfolio.pages.NotFoundPage
 import lyskov.portfolio.registry.PageRegistry
@@ -24,7 +23,7 @@ object SiteGenerator {
     fun generate(outputDir: File) {
         outputDir.mkdirs()
         generatePages(outputDir)
-        write(outputDir, "styles.css",  Css.STYLESHEET)
+        write(outputDir, "styles.css",  readResource("styles/main.css"))
         write(outputDir, "robots.txt",  buildRobotsTxt())
         write(outputDir, "sitemap.xml", buildSitemap())
         write(outputDir, "CNAME",       SeoConfig.CNAME_DOMAIN)
@@ -97,6 +96,13 @@ object SiteGenerator {
     }
 
     // ─── Utility ──────────────────────────────────────────────────────────────
+
+    private fun readResource(path: String): String =
+        SiteGenerator::class.java.classLoader
+            .getResourceAsStream(path)
+            ?.bufferedReader(Charsets.UTF_8)
+            ?.readText()
+            ?: error("Resource not found: $path")
 
     private fun write(outputDir: File, relativePath: String, content: String) {
         val target = outputDir.resolve(relativePath)

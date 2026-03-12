@@ -123,6 +123,7 @@ data class About(
 
 @Serializable
 data class Goodbye(
+    val goodbyeGif: String,
     val heading: String,
     val sub: String,
     val email: String,

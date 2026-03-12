@@ -43,7 +43,7 @@
           "tags": ["2025", "LegalTech", "Web"],
           "href": "",
           "cover": "",
-          "color": "#dce9e0",
+          "color": "#E0F2E6",
           "colorEnd": "#ebedef"
         },
         {
@@ -52,7 +52,7 @@
           "tags": ["2026", "—", "Mobile"],
           "href": "",
           "cover": "",
-          "color": "#e3e4f5",
+          "color": "#F2E5E0",
           "colorEnd": "#ebedef"
         },
         {
@@ -61,7 +61,7 @@
           "tags": ["2026", "PropTech", "Web"],
           "href": "",
           "cover": "",
-          "color": "#ede8f5",
+          "color": "#E0EBF2",
           "colorEnd": "#ebedef"
         },
         {
@@ -70,9 +70,8 @@
           "tags": ["2025", "Telecom", "Web"],
           "href": "",
           "cover": "",
-          "color": "#1a2c4a",
-          "colorEnd": "#0f1c2e",
-          "textColor": "#ffffff"
+          "color": "#F2E0E4",
+          "colorEnd": "#ebedef"
         }
       ]
     },
@@ -116,6 +115,7 @@
         "footnote": "На форуме сервера по GTA San Andreas Multiplayer был дизайнером графики всего сервера (ну, это типо было круто!)"
       },
       "goodbye": {
+        "goodbyeGif" : "/gif/cat-dance.gif",
         "heading": "cпасибо за уделенное время!",
         "sub": "буду рад посотрудничать с вами",
         "email": "mr.ansuz@gmail.com"
