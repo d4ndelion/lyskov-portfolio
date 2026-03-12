@@ -1,12 +1,14 @@
 [versions]
-kotlin              = "2.1.20"
-kotlinx-html        = "0.11.0"
+kotlin = "2.1.20"
+kotlinx-html = "0.11.0"
 kotlinx-serialization = "1.7.3"
+kotlin-css = "1.0.0-pre.625"
 
 [libraries]
-kotlinx-html               = { module = "org.jetbrains.kotlinx:kotlinx-html-jvm",        version.ref = "kotlinx-html" }
+kotlinx-html = { module = "org.jetbrains.kotlinx:kotlinx-html-jvm", version.ref = "kotlinx-html" }
 kotlinx-serialization-json = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version.ref = "kotlinx-serialization" }
+kotlin-css = { module = "org.jetbrains.kotlin-wrappers:kotlin-css", version.ref = "kotlin-css" }
 
 [plugins]
-jvm                  = { id = "org.jetbrains.kotlin.jvm",                    version.ref = "kotlin" }
-kotlin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization",   version.ref = "kotlin" }
+jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
+kotlin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }

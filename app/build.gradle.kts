@@ -11,6 +11,7 @@ repositories {
 dependencies {
     implementation(libs.kotlinx.html)
     implementation(libs.kotlinx.serialization.json)
+    implementation(libs.kotlin.css)
 }
 
 java {

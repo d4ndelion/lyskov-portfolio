@@ -28,6 +28,7 @@ object SiteGenerator {
         write(outputDir, "robots.txt",  buildRobotsTxt())
         write(outputDir, "sitemap.xml", buildSitemap())
         write(outputDir, "CNAME",       SeoConfig.CNAME_DOMAIN)
+        copyStaticAssets(outputDir)
         println("Site written to: ${outputDir.absolutePath}")
     }
 
@@ -71,6 +72,27 @@ object SiteGenerator {
                 appendLine("  </url>")
             }
             append("</urlset>")
+        }
+    }
+
+    // ─── Static assets ────────────────────────────────────────────────────────
+
+    /**
+     * Copies static asset directories (vector/, image/, etc.) from the
+     * classpath resources root into [outputDir], preserving folder structure.
+     *
+     * Any directory sitting next to main.json in resources is treated as a
+     * static asset folder and copied verbatim.
+     */
+    private fun copyStaticAssets(outputDir: File) {
+        val resourcesRoot = SiteGenerator::class.java.classLoader
+            .getResource("main.json")
+            ?.toURI()
+            ?.let { File(it).parentFile }
+            ?: return
+
+        resourcesRoot.listFiles { f -> f.isDirectory }?.forEach { dir ->
+            dir.copyRecursively(target = outputDir.resolve(dir.name), overwrite = true)
         }
     }
 

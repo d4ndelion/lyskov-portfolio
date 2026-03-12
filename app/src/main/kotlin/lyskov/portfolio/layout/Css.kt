@@ -38,6 +38,7 @@ object Css {
   --page-pad:    40px;
   --content-w:   1360px;
   --gap-section: 20px;
+  --folder-tab-h: 34px;   /* folder ear height ≈ 3.37% × 1008px */
 }
 
 /* ── Base ─────────────────────────────────────────────────────────────────── */
@@ -250,7 +251,7 @@ a {
   display: flex;
   flex-direction: column;
   align-items: center;
-  overflow: hidden;
+  overflow: clip;
   padding: var(--page-pad);
 }
 
@@ -302,10 +303,9 @@ a {
 .hero__avatar {
   width: 140px;
   height: 140px;
-  border-radius: 50%;
   overflow: hidden;
   flex-shrink: 0;
-  background: var(--c-photo-bg);
+  background-color: transparent;
 }
 
 .hero__avatar img {
@@ -413,44 +413,78 @@ a {
 }
 
 /* ── Case sections ────────────────────────────────────────────────────────── */
+
+/*
+ * Folder shape = tab ear (top-left) + shoulder (top-right) + body (full).
+ * All live INSIDE .case-body so nothing clips outside .pg-section.
+ *   .case-body height    = body 1008px + tab ear var(--folder-tab-h)
+ *   .case-card__body     = full width, top 0, bottom 0 (covers entire card)
+ *   .case-card__back     = left 28.9%, top ~3.58%, height ~5.96% (shoulder)
+ *   .case-card__tab      = left 28.9%, top 0, height --folder-tab-h (rendered last → on top)
+ * Render order: body → back → tab → cover → info (tab visually on top of body)
+ */
 .case-body {
-  height: 1008px;
+  height: calc(1008px + var(--folder-tab-h));
   display: flex;
-  align-items: flex-start;
-  justify-content: center;
   width: 100%;
 }
 
 .case-card {
   flex: 1;
-  align-self: stretch;
+  height: 100%;
   display: flex;
   flex-direction: column;
   gap: 60px;
   align-items: center;
   justify-content: flex-end;
-  overflow: hidden;
-  padding: 120px var(--page-pad) var(--page-pad);
-  border-radius: 0 40px 40px 40px;
+  /* extra --folder-tab-h keeps 120px visual gap from the body top, not the tab top */
+  padding: calc(120px + var(--folder-tab-h)) var(--page-pad) var(--page-pad);
   position: relative;
+}
+
+/* Folder body — gradient + shape, covers the entire card from top: 0 */
+.case-card__body {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  border-radius: 0 40px 40px 40px;
+  box-shadow: inset 0px -4px 12px #F8FAFB;
+  pointer-events: none;
+}
+
+/* Shoulder overlay — subtle tint at top-right where tab meets body (≈5.96% of total height) */
+.case-card__back {
+  position: absolute;
+  left: 28.9%;
+  right: 0;
+  top: var(--folder-tab-h);
+  height: 60px;
+  opacity: 0.48;
+  pointer-events: none;
+}
+
+/* Folder tab ear — rendered AFTER body+back so it appears on top; left 28.9%, top 0 */
+.case-card__tab {
+  position: absolute;
+  left: 0;
+  width: 28.9%;
+  top: 0;
+  height: var(--folder-tab-h);
+  border-radius: 8px 8px 0 0;
+  opacity: 0.48;
+  pointer-events: none;
 }
 
 .case-card__cover {
   position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
+  left: 0;
+  right: 0;
+  top: var(--folder-tab-h);
+  bottom: 0;
   object-fit: cover;
   display: block;
-  pointer-events: none;
-}
-
-.case-card::after {
-  content: '';
-  position: absolute;
-  inset: 0;
-  border-radius: inherit;
-  box-shadow: inset 0 -4px 12px 0 #f8fafb;
   pointer-events: none;
 }
 
@@ -690,6 +724,7 @@ a {
 .about-photo--sq {
   width: 200px;
   height: 200px;
+  background-color: transparent;
 }
 
 .about-description {

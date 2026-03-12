@@ -95,6 +95,11 @@ data class Case(
     val tags: List<String>,
     val href: String,
     val cover: String = "",
+    val color: String = "#e8ebed",
+    /** Gradient end color (bottom of card). Defaults to neutral light gray. */
+    val colorEnd: String = "#ebedef",
+    /** Text color for title and description. Use "#ffffff" for dark backgrounds. */
+    val textColor: String = "#071b31",
 )
 
 @Serializable
