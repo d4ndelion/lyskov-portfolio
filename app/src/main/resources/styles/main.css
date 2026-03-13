@@ -696,6 +696,7 @@ a {
     flex-direction: column;
     gap: 40px;
     align-items: flex-start;
+    text-align: center;
 }
 
 .about-nick {
