@@ -794,8 +794,8 @@ a {
     flex-direction: column;
     gap: 12px;
     align-items: center;
-    width: 100%;
-    max-width: 400px;
+    width: fit-content;
+    max-width: 100%;
 }
 
 .goodbye-btn-row {
@@ -803,6 +803,7 @@ a {
     gap: 12px;
     align-items: center;
     justify-content: center;
+    width: 100%;
 }
 
 .btn-write {
@@ -871,7 +872,7 @@ a {
     font-weight: 500;
     line-height: 28px;
     white-space: nowrap;
-    width: fit-content;
+    width: 100%;
     transition: opacity 0.15s ease;
 }
 
