@@ -118,7 +118,8 @@
         "goodbyeGif" : "/gif/cat-dance.gif",
         "heading": "cпасибо за уделенное время!",
         "sub": "буду рад посотрудничать с вами",
-        "email": "mr.ansuz@gmail.com"
+        "email": "mr.ansuz@gmail.com",
+        "telegramIcon": "/vector/telegram-icon-white.svg"
       }
     }
   ]

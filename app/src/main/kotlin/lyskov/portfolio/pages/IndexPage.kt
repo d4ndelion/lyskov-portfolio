@@ -22,12 +22,7 @@ object IndexPage {
     private val page = PageRegistry.all.first { it.urlPath == "/" }
 
     private object Icons {
-        const val CASE_ARROW = "https://www.figma.com/api/mcp/asset/206172de-a724-4f23-b697-33abbdc8884e"
-        const val WRITE = "https://www.figma.com/api/mcp/asset/280a39aa-8b87-4759-9fd3-5839785e004d"
-        const val COPY_EMAIL = "https://www.figma.com/api/mcp/asset/6222a00e-3c71-46c5-b8bb-a19c4a222f14"
         const val VIDEO_PLAY = "https://www.figma.com/api/mcp/asset/bfdb6c95-d75c-47f4-91a7-174ae97c8c2c"
-        const val MAX = "https://www.figma.com/api/mcp/asset/1dc8b057-64be-4b1f-ab3d-65b9546aafcb"
-        const val LINKEDIN = "https://www.figma.com/api/mcp/asset/e03cc8ec-fcf9-4d54-b83a-eeda3b5fc9f5"
     }
 
     fun render(): String = renderPage(page) {
@@ -84,7 +79,7 @@ object IndexPage {
                         a(href = videoButton.href, classes = "hero__video-btn") {
                             attributes["aria-label"] = "Видео: ${videoButton.label}, ${videoButton.duration}"
                             div(classes = "hero__video-preview") {
-                                img(src = Icons.VIDEO_PLAY, alt = "")
+                                img(src = "/vector/video-play.svg", alt = "")
                             }
                             div(classes = "hero__video-info") {
                                 span(classes = "hero__video-title") { +videoButton.label }
@@ -143,7 +138,7 @@ object IndexPage {
                                 div(classes = "case-card__btn-slot") {
                                     if (case.href.isNotEmpty()) {
                                         a(href = case.href, classes = "btn-case") {
-                                            img(src = Icons.CASE_ARROW, alt = "")
+                                            img(src = "/vector/case-arrow.svg", alt = "")
                                             span { +"Смотреть кейс" }
                                         }
                                     }
@@ -200,7 +195,7 @@ object IndexPage {
                                 div(classes = "mini-card__footer") {
                                     if (ec.href.isNotEmpty()) {
                                         a(href = ec.href, classes = "btn-case") {
-                                            img(src = Icons.CASE_ARROW, alt = "")
+                                            img(src = "/vector/case-arrow.svg", alt = "")
                                             span { +"Подробнее" }
                                         }
                                     }
@@ -263,7 +258,7 @@ object IndexPage {
                         if (tgLink.isNotEmpty()) {
                             a(href = tgLink, classes = "btn-write", target = "_blank") {
                                 attributes["rel"] = "noopener"
-                                img(src = Icons.WRITE, alt = "")
+                                img(src = "/vector/telegram-icon-white.svg", alt = "")
                                 span { +"Написать" }
                             }
                         }
@@ -272,7 +267,7 @@ object IndexPage {
                             a(href = maxLink, classes = "icon-btn", target = "_blank") {
                                 attributes["aria-label"] = "MAX"
                                 attributes["rel"] = "noopener"
-                                img(src = Icons.MAX, alt = "MAX")
+                                img(src = header.socialMediaLinks.max.icon, alt = "MAX")
                             }
                         }
                         val liLink = header.socialMediaLinks.linkedin.link
@@ -280,13 +275,14 @@ object IndexPage {
                             a(href = liLink, classes = "icon-btn icon-btn--linkedin", target = "_blank") {
                                 attributes["aria-label"] = "LinkedIn"
                                 attributes["rel"] = "noopener"
-                                img(src = Icons.LINKEDIN, alt = "LinkedIn")
+                                img(src = header.socialMediaLinks.linkedin.icon, alt = "LinkedIn")
                             }
                         }
                     }
-                    a(href = "mailto:${goodbye.email}", classes = "goodbye-email") {
+                    a(href = "#", classes = "goodbye-email") {
+                        attributes["onclick"] = "navigator.clipboard.writeText('${goodbye.email}'); return false;"
                         span { +goodbye.email }
-                        img(src = Icons.COPY_EMAIL, alt = "")
+                        img(src = "/vector/copy-icon.svg", alt = "")
                     }
                 }
             }
