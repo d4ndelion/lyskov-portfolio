@@ -48,7 +48,8 @@ fun FlowContent.goodbyeSection(goodbye: Goodbye) {
                         }
                     }
                 }
-                a(href = "mailto:${goodbye.email}", classes = "goodbye-email") {
+                a(href = "#", classes = "goodbye-email") {
+                    attributes["onclick"] = "copyEmail('${goodbye.email}'); return false;"
                     span { +goodbye.email }
                     span(classes = "goodbye-email__icon") {}
                 }

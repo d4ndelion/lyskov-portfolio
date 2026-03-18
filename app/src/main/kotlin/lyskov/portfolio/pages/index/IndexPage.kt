@@ -119,7 +119,7 @@ object IndexPage {
                                 div(classes = "case-card__btn-slot") {
                                     if (case.href.isNotEmpty()) {
                                         a(href = case.href, classes = "btn-case") {
-                                            img(src = "/vector/case-arrow.svg", alt = "")
+                                            span(classes = "btn-case__icon") {}
                                             span { +"Смотреть кейс" }
                                         }
                                     }
@@ -169,7 +169,7 @@ object IndexPage {
                                 div(classes = "mini-card__footer") {
                                     if (ec.href.isNotEmpty()) {
                                         a(href = ec.href, classes = "btn-case") {
-                                            img(src = "/vector/case-arrow.svg", alt = "")
+                                            span(classes = "btn-case__icon") {}
                                             span { +"Подробнее" }
                                         }
                                     }

@@ -1,6 +1,9 @@
 package lyskov.portfolio.layout
 
 import kotlinx.css.CssBuilder
+import kotlinx.css.Padding
+import kotlinx.css.padding
+import kotlinx.css.px
 
 internal fun buildSharedCss(): String = CssBuilder().apply {
 
@@ -447,6 +450,46 @@ internal fun buildSharedCss(): String = CssBuilder().apply {
 
     rule(".goodbye-email:hover .goodbye-email__icon") {
         put("background-color", "var(--c-ink)")
+    }
+
+    // ── Copy toast ─────────────────────────────────────────────────────────
+    rule(".copy-toast") {
+        padding = Padding(16.px, 20.px)
+        put("position", "fixed")
+        put("top", "100px")
+        put("right", "24px")
+        put("display", "flex")
+        put("align-items", "center")
+        put("gap", "16px")
+        put("background", "#ffffff")
+        put("border", "1.5px solid var(--c-ink-12)")
+        put("border-radius", "24px")
+        put("z-index", "9999")
+        put("opacity", "0")
+        put("transform", "translateY(-12px)")
+        put("transition", "opacity 0.2s ease, transform 0.2s ease")
+        put("pointer-events", "none")
+    }
+
+    rule(".copy-toast--visible") {
+        put("opacity", "1")
+        put("transform", "translateY(0)")
+        put("pointer-events", "auto")
+    }
+
+    rule(".copy-toast__icon") {
+        put("width", "28px")
+        put("height", "28px")
+        put("flex-shrink", "0")
+    }
+
+    rule(".copy-toast__text") {
+        put("font-family", "var(--font)")
+        put("font-size", "20px")
+        put("font-weight", "500")
+        put("line-height", "28px")
+        put("color", "var(--c-ink)")
+        put("white-space", "nowrap")
     }
 
     // ── 404 page ───────────────────────────────────────────────────────────

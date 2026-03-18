@@ -270,17 +270,30 @@ internal fun buildMainCss(): String = CssBuilder().apply {
         put("cursor", "pointer")
         put("text-decoration", "none")
         put("flex-shrink", "0")
-        put("transition", "opacity 0.15s ease")
+        put("transition", "background 0.15s ease, color 0.15s ease")
     }
 
     rule(".btn-case:hover") {
-        put("opacity", "0.75")
+        put("background", "var(--c-ink)")
+        put("color", "#fff")
     }
 
-    rule(".btn-case img") {
-        width = 12.px
-        height = 12.px
+    rule(".btn-case__icon") {
+        put("display", "block")
+        put("width", "12px")
+        put("height", "12px")
         put("flex-shrink", "0")
+        put("background-color", "var(--c-ink)")
+        put("-webkit-mask-image", "url('/vector/case-arrow.svg')")
+        put("mask-image", "url('/vector/case-arrow.svg')")
+        put("mask-size", "contain")
+        put("mask-repeat", "no-repeat")
+        put("mask-position", "center")
+        put("transition", "background-color 0.15s ease")
+    }
+
+    rule(".btn-case:hover .btn-case__icon") {
+        put("background-color", "#fff")
     }
 
     // ── Extra cases ────────────────────────────────────────────────────────

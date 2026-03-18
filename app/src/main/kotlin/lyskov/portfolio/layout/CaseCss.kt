@@ -309,9 +309,9 @@ internal fun buildCaseCss(): String = CssBuilder().apply {
     }
 
     rule(".story-card__text") {
-        put("font-size", "16px")
+        put("font-size", "14px")
         put("font-weight", "500")
-        put("line-height", "22px")
+        put("line-height", "20px")
         put("color", "rgba(7, 27, 49, 0.90)")
     }
 

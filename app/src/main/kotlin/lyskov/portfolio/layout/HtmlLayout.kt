@@ -8,9 +8,11 @@ import kotlinx.html.lang
 import kotlinx.html.link
 import kotlinx.html.main
 import kotlinx.html.meta
+import kotlinx.html.script
 import kotlinx.html.stream.appendHTML
 import kotlinx.html.title
 import lyskov.portfolio.components.caseHeader
+import lyskov.portfolio.components.copyToast
 import lyskov.portfolio.components.siteFooter
 import lyskov.portfolio.components.siteHeader
 import lyskov.portfolio.model.Page
@@ -77,6 +79,8 @@ fun renderPage(page: Page, breadcrumb: String? = null, content: FlowContent.() -
                 }
 
                 siteFooter()
+                copyToast()
+                script(src = "/js/copy-toast.js") {}
             }
         }
     }
