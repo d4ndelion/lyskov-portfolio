@@ -1,11 +1,16 @@
 package lyskov.portfolio.generator
 
+import lyskov.portfolio.js.mkdirSync
+import lyskov.portfolio.js.readdirSync
+import lyskov.portfolio.js.readFileSync
+import lyskov.portfolio.js.statSync
+import lyskov.portfolio.js.writeFileSync
+import lyskov.portfolio.layout.Css
 import lyskov.portfolio.pages.IndexPage
 import lyskov.portfolio.pages.NotFoundPage
+import lyskov.portfolio.registry.ContentLoader
 import lyskov.portfolio.registry.PageRegistry
 import lyskov.portfolio.seo.SeoConfig
-import java.io.File
-import java.time.LocalDate
 
 /**
  * Orchestrates the full static site build.
@@ -14,30 +19,26 @@ import java.time.LocalDate
  *   1. Add a [lyskov.portfolio.model.Page] to [lyskov.portfolio.registry.PageRegistry].
  *   2. Create its renderer (e.g. `AboutPage.kt`).
  *   3. Add one line to [generatePages] calling that renderer.
- *
- * Everything else (sitemap, robots.txt) is derived automatically from
- * [PageRegistry.all].
  */
 object SiteGenerator {
 
-    fun generate(outputDir: File) {
-        outputDir.mkdirs()
+    fun generate(outputDir: String, resourcesDir: String) {
+        ContentLoader.init(resourcesDir)
+        mkdirSync(outputDir, js("({ recursive: true })"))
         generatePages(outputDir)
-        write(outputDir, "styles.css",  readResource("styles/main.css"))
+        write(outputDir, "styles.css",  Css.STYLESHEET)
         write(outputDir, "robots.txt",  buildRobotsTxt())
         write(outputDir, "sitemap.xml", buildSitemap())
         write(outputDir, "CNAME",       SeoConfig.CNAME_DOMAIN)
-        copyStaticAssets(outputDir)
-        println("Site written to: ${outputDir.absolutePath}")
+        copyStaticAssets(resourcesDir, outputDir)
+        println("Site written to: $outputDir")
     }
 
     // ─── Pages ────────────────────────────────────────────────────────────────
 
-    private fun generatePages(outputDir: File) {
+    private fun generatePages(outputDir: String) {
         write(outputDir, "index.html", IndexPage.render())
         write(outputDir, "404.html",   NotFoundPage.render())
-        // Add new pages here, e.g.:
-        // write(outputDir, "about/index.html", AboutPage.render())
     }
 
     // ─── robots.txt ───────────────────────────────────────────────────────────
@@ -51,12 +52,8 @@ object SiteGenerator {
 
     // ─── sitemap.xml ──────────────────────────────────────────────────────────
 
-    /**
-     * Generates sitemap.xml dynamically from [PageRegistry.all].
-     * Adding a page to the registry automatically includes it here.
-     */
     private fun buildSitemap(): String {
-        val today = LocalDate.now()
+        val today = js("new Date().toISOString().split('T')[0]") as String
         return buildString {
             appendLine("""<?xml version="1.0" encoding="UTF-8"?>""")
             appendLine("""<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">""")
@@ -77,36 +74,42 @@ object SiteGenerator {
     // ─── Static assets ────────────────────────────────────────────────────────
 
     /**
-     * Copies static asset directories (vector/, image/, etc.) from the
-     * classpath resources root into [outputDir], preserving folder structure.
-     *
-     * Any directory sitting next to main.json in resources is treated as a
-     * static asset folder and copied verbatim.
+     * Copies every subdirectory from [resourcesDir] into [outputDir],
+     * preserving folder structure. Binary files are copied as raw buffers.
      */
-    private fun copyStaticAssets(outputDir: File) {
-        val resourcesRoot = SiteGenerator::class.java.classLoader
-            .getResource("main.json")
-            ?.toURI()
-            ?.let { File(it).parentFile }
-            ?: return
+    private fun copyStaticAssets(resourcesDir: String, outputDir: String) {
+        val entries = readdirSync(resourcesDir)
+        for (entry in entries) {
+            val srcPath = "$resourcesDir/$entry"
+            if (statSync(srcPath).isDirectory() as Boolean) {
+                copyDirRecursive(srcPath, "$outputDir/$entry")
+            }
+        }
+    }
 
-        resourcesRoot.listFiles { f -> f.isDirectory }?.forEach { dir ->
-            dir.copyRecursively(target = outputDir.resolve(dir.name), overwrite = true)
+    private fun copyDirRecursive(src: String, dest: String) {
+        mkdirSync(dest, js("({ recursive: true })"))
+        val entries = readdirSync(src)
+        for (entry in entries) {
+            val srcPath  = "$src/$entry"
+            val destPath = "$dest/$entry"
+            if (statSync(srcPath).isDirectory() as Boolean) {
+                copyDirRecursive(srcPath, destPath)
+            } else {
+                writeFileSync(destPath, readFileSync(srcPath)) // Buffer copy
+            }
         }
     }
 
     // ─── Utility ──────────────────────────────────────────────────────────────
 
-    private fun readResource(path: String): String =
-        SiteGenerator::class.java.classLoader
-            .getResourceAsStream(path)
-            ?.bufferedReader(Charsets.UTF_8)
-            ?.readText()
-            ?: error("Resource not found: $path")
-
-    private fun write(outputDir: File, relativePath: String, content: String) {
-        val target = outputDir.resolve(relativePath)
-        target.parentFile?.mkdirs()
-        target.writeText(content, Charsets.UTF_8)
+    private fun write(outputDir: String, relativePath: String, content: String) {
+        val fullPath = "$outputDir/$relativePath"
+        // Ensure parent directory exists
+        val lastSlash = fullPath.lastIndexOf('/')
+        if (lastSlash > 0) {
+            mkdirSync(fullPath.substring(0, lastSlash), js("({ recursive: true })"))
+        }
+        writeFileSync(fullPath, content)
     }
 }

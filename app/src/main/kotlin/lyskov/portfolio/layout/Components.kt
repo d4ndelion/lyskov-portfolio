@@ -67,7 +67,8 @@ fun FlowContent.siteHeader(@Suppress("UNUSED_PARAMETER") currentUrlPath: String)
 fun FlowContent.siteFooter() {
     footer(classes = "site-footer") {
         div(classes = "site-footer__body") {
-            span(classes = "site-footer__copy") { +"© ilya lyskov, ${java.time.Year.now().value}" }
+            val year = js("new Date().getFullYear()") as Int
+            span(classes = "site-footer__copy") { +"© ilya lyskov, $year" }
         }
     }
 }

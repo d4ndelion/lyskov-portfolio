@@ -1,82 +1,101 @@
 plugins {
-    alias(libs.plugins.jvm)
+    alias(libs.plugins.multiplatform)
     alias(libs.plugins.kotlin.serialization)
-    application
 }
 
 repositories {
     mavenCentral()
 }
 
-dependencies {
-    implementation(libs.kotlinx.html)
-    implementation(libs.kotlinx.serialization.json)
-    implementation(libs.kotlin.css)
-}
+kotlin {
+    js(IR) {
+        nodejs()
+        binaries.executable()
+    }
 
-java {
-    toolchain {
-        languageVersion.set(JavaLanguageVersion.of(21))
+    sourceSets {
+        val jsMain by getting {
+            kotlin.srcDir("src/main/kotlin")
+            resources.srcDir("src/main/resources")
+            dependencies {
+                implementation(libs.kotlinx.html)
+                implementation(libs.kotlinx.serialization.json)
+                implementation(libs.kotlin.css)
+            }
+        }
+        val jsTest by getting {
+            kotlin.srcDir("src/test/kotlin")
+        }
     }
 }
 
-application {
-    mainClass.set("lyskov.portfolio.MainKt")
+// ── Output directories ────────────────────────────────────────────────────────
+
+val siteDir: Provider<Directory> = rootProject.layout.buildDirectory.dir("site")
+val resourcesDir: Provider<Directory> = layout.buildDirectory.dir("processedResources/js/main")
+
+// Pass output and resources paths to the Node.js process via environment variables.
+tasks.withType<org.jetbrains.kotlin.gradle.targets.js.nodejs.NodeJsExec>().configureEach {
+    environment("SITE_OUTPUT_DIR",    siteDir.get().asFile.absolutePath)
+    environment("SITE_RESOURCES_DIR", resourcesDir.get().asFile.absolutePath)
 }
 
-val siteDir: DirectoryProperty = rootProject.layout.buildDirectory.dir("site")
-    .let { rootProject.objects.directoryProperty().also { p -> p.set(it) } }
+// ── Site tasks ────────────────────────────────────────────────────────────────
 
-tasks.register<JavaExec>("generateSite") {
+tasks.register("generateSite") {
     group = "site"
     description = "Runs the static site generator and writes output to build/site."
-    dependsOn("classes")
-    classpath = sourceSets.main.get().runtimeClasspath
-    mainClass.set("lyskov.portfolio.MainKt")
-    args(siteDir.get().toString())
+    dependsOn("jsNodeDevelopmentRun")
     outputs.dir(siteDir)
+}
+
+val compiledBinary: Provider<RegularFile> =
+    layout.buildDirectory.file("compileSync/js/main/developmentExecutable/kotlin/lyskov-portfolio-app.js")
+
+tasks.register("devServer") {
+    group = "site"
+    description = "Starts a local dev server on :3000 with live reload. Watches src/ and rebuilds on change."
+    dependsOn("generateSite", "kotlinNodeJsSetup")
+
+    doLast {
+        val nodeExec = rootProject.extensions
+            .getByType(org.jetbrains.kotlin.gradle.targets.js.nodejs.NodeJsEnvSpec::class.java)
+            .executable.get()
+
+        project.exec {
+            executable = nodeExec
+            args(compiledBinary.get().asFile.absolutePath)
+            environment("SITE_MODE",         "serve")
+            environment("SITE_OUTPUT_DIR",   siteDir.get().asFile.absolutePath)
+            environment("SITE_SRC_DIR",      layout.projectDirectory.dir("src/main").asFile.absolutePath)
+            environment("SITE_GRADLEW_PATH", rootProject.file("gradlew").absolutePath)
+            environment("SITE_ROOT_DIR",     rootProject.projectDir.absolutePath)
+        }
+    }
 }
 
 tasks.register("verifySite") {
     group = "verification"
-    description = "Verifies that all required files are present and well-formed in build/site."
+    description = "Verifies that all required files are present in build/site."
     dependsOn("generateSite")
 
-    val indexContent    = providers.fileContents(siteDir.file("index.html")).asText
-    val notFoundContent = providers.fileContents(siteDir.file("404.html")).asText
-    val sitemapContent  = providers.fileContents(siteDir.file("sitemap.xml")).asText
-    val robotsContent   = providers.fileContents(siteDir.file("robots.txt")).asText
-    val expectedDomain  = providers.gradleProperty("site.domain")
+    val expectedDomain = providers.gradleProperty("site.domain")
 
     doLast {
         fun verify(condition: Boolean, message: String) {
             check(condition) { "Site verification FAILED — $message" }
         }
 
-        verify(indexContent.isPresent,    "index.html not found in build/site")
-        verify(notFoundContent.isPresent, "404.html not found in build/site")
-        verify(sitemapContent.isPresent,  "sitemap.xml not found in build/site")
-        verify(robotsContent.isPresent,   "robots.txt not found in build/site")
+        val siteRoot = siteDir.get().asFile
+        val indexText   = siteRoot.resolve("index.html").also { verify(it.exists(), "index.html not found in build/site") }.readText()
+        val sitemapText = siteRoot.resolve("sitemap.xml").also { verify(it.exists(), "sitemap.xml not found in build/site") }.readText()
+        verify(siteRoot.resolve("404.html").exists(),   "404.html not found in build/site")
+        verify(siteRoot.resolve("robots.txt").exists(), "robots.txt not found in build/site")
 
         val domain = expectedDomain.get()
-        verify(
-            sitemapContent.get().contains(domain),
-            "sitemap.xml does not reference the index page URL"
-        )
-        verify(
-            indexContent.get().contains("canonical"),
-            "index.html is missing a canonical <link> tag"
-        )
+        verify(sitemapText.contains(domain),    "sitemap.xml does not reference the index page URL")
+        verify(indexText.contains("canonical"), "index.html is missing a canonical <link> tag")
 
         logger.lifecycle("✓ All site verification checks passed.")
-    }
-}
-
-@Suppress("UnstableApiUsage")
-testing {
-    suites {
-        val test by getting(JvmTestSuite::class) {
-            useKotlinTest("2.1.20")
-        }
     }
 }

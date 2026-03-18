@@ -5,10 +5,10 @@ kotlinx-serialization = "1.7.3"
 kotlin-css = "1.0.0-pre.625"
 
 [libraries]
-kotlinx-html = { module = "org.jetbrains.kotlinx:kotlinx-html-jvm", version.ref = "kotlinx-html" }
+kotlinx-html = { module = "org.jetbrains.kotlinx:kotlinx-html-js", version.ref = "kotlinx-html" }
 kotlinx-serialization-json = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version.ref = "kotlinx-serialization" }
 kotlin-css = { module = "org.jetbrains.kotlin-wrappers:kotlin-css", version.ref = "kotlin-css" }
 
 [plugins]
-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
+multiplatform = { id = "org.jetbrains.kotlin.multiplatform", version.ref = "kotlin" }
 kotlin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }

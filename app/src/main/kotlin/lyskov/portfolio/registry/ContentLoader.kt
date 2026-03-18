@@ -4,20 +4,20 @@ import kotlinx.serialization.json.Json
 import lyskov.portfolio.model.PageContent
 
 /**
- * Loads and deserializes [PageContent] from `main.json` on the classpath.
- * Result is cached in a lazy property — parsed once per JVM run.
+ * Loads and deserializes [PageContent] from `main.json`.
+ * Must be initialized once via [init] before [content] is accessed.
  */
 object ContentLoader {
 
     private val json = Json { ignoreUnknownKeys = true }
 
-    val content: PageContent by lazy {
-        val text = ContentLoader::class.java.classLoader
-            .getResourceAsStream("main.json")
-            ?.bufferedReader()
-            ?.readText()
-            ?: error("main.json not found on classpath")
+    private lateinit var _content: PageContent
 
-        json.decodeFromString(text)
+    val content: PageContent
+        get() = _content
+
+    fun init(resourcesDir: String) {
+        val text = lyskov.portfolio.js.readFileSync("$resourcesDir/main.json", "utf8")
+        _content = json.decodeFromString(text)
     }
 }

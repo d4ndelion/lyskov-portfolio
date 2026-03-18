@@ -1,16 +1,20 @@
 package lyskov.portfolio
 
+import lyskov.portfolio.devserver.DevServer
 import lyskov.portfolio.generator.SiteGenerator
-import java.io.File
 
-/**
- * Entry point for the static site generator.
- *
- * Usage:
- *   ./gradlew generateSite          → outputs to <root>/build/site
- *   java -jar app.jar <output-dir>  → outputs to the specified directory
- */
-fun main(args: Array<String>) {
-    val outputDir = if (args.isNotEmpty()) File(args[0]) else File("build/site")
-    SiteGenerator.generate(outputDir)
+fun main() {
+    val outputDir    = js("process.env['SITE_OUTPUT_DIR']")    as? String ?: "build/site"
+    val resourcesDir = js("process.env['SITE_RESOURCES_DIR']") as? String ?: "build/processedResources/js/main"
+    val mode         = js("process.env['SITE_MODE']")          as? String ?: "generate"
+
+    when (mode) {
+        "serve" -> {
+            val srcDir      = js("process.env['SITE_SRC_DIR']")      as? String ?: "src/main"
+            val gradlewPath = js("process.env['SITE_GRADLEW_PATH']") as? String ?: "./gradlew"
+            val rootDir     = js("process.env['SITE_ROOT_DIR']")     as? String ?: "."
+            DevServer.start(outputDir, srcDir, gradlewPath, rootDir)
+        }
+        else -> SiteGenerator.generate(outputDir, resourcesDir)
+    }
 }
