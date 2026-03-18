@@ -1,6 +1,9 @@
 package lyskov.portfolio.layout
 
 import kotlinx.css.CssBuilder
+import kotlinx.css.height
+import kotlinx.css.px
+import kotlinx.css.width
 
 internal fun buildMainCss(): String = CssBuilder().apply {
 
@@ -272,8 +275,8 @@ internal fun buildMainCss(): String = CssBuilder().apply {
     }
 
     rule(".btn-case img") {
-        put("width", "12px")
-        put("height", "12px")
+        width = 12.px
+        height = 12.px
         put("flex-shrink", "0")
     }
 
