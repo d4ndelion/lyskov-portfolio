@@ -128,6 +128,11 @@ object CasePage {
                     section.links.forEach { externalLinkCard(it) }
                 }
             }
+            section.postParagraphs.forEach { para ->
+                p(classes = if (para.muted) "case-para case-para--muted" else "case-para") {
+                    renderInlineText(para.text)
+                }
+            }
         }
     }
 

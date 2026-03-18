@@ -259,14 +259,10 @@
           "label": "Интерактивный прототип",
           "href": "https://www.figma.com/proto/xdG2OV53ZSTdwiSjP0FWwW/%D0%98%D0%BB%D1%8C%D1%8F-%D0%9B%D1%8B%D1%81%D0%BA%D0%BE%D0%B2-%E2%80%94-MWS---%D0%A2%D0%B5%D1%81%D1%82%D0%BE%D0%B2%D0%BE%D0%B5?node-id=38-8561&t=3evqpzxfyHBak3jw-0&scaling=min-zoom&content-scaling=fixed&starting-point-node-id=38%3A8296"
         }
-      ]
-    },
-    {
-      "type": "textSection",
-      "heading": "",
-      "paragraphs": [
+      ],
+      "postParagraphs": [
         {
-          "text": "Перед респондентами стояла задача: \u2028пригласить пользователя Messi L. и назначить ему роль Editor.",
+          "text": "Перед респондентами стояла задача: пригласить пользователя Messi L. и назначить ему роль Editor.",
           "muted": false
         },
         {

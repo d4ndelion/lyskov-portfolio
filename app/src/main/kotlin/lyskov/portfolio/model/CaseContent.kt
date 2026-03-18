@@ -61,6 +61,8 @@ sealed class CaseSection {
         val listHeader: String = "",
         val listItems: List<String> = emptyList(),
         val links: List<ExternalLink> = emptyList(),
+        /** Paragraphs rendered after the links row. */
+        val postParagraphs: List<TextParagraph> = emptyList(),
     ) : CaseSection()
 
     @Serializable

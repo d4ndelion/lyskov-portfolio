@@ -227,7 +227,6 @@ internal fun buildCaseCss(): String = CssBuilder().apply {
     rule(".text-highlight") {
         put("display", "inline")
         put("padding", "0 6px")
-        put("border-radius", "6px")
     }
 
     // ── Ordered list ───────────────────────────────────────────────────────
