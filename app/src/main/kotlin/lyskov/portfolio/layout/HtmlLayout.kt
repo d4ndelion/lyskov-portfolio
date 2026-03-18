@@ -62,7 +62,7 @@ fun renderPage(page: Page, breadcrumb: String? = null, content: FlowContent.() -
                 }
                 link(
                     rel  = "stylesheet",
-                    href = "https://fonts.googleapis.com/css2?family=Onest:wght@400;500&display=swap",
+                    href = "https://fonts.googleapis.com/css2?family=Onest:wght@400;500&family=Inter:wght@400;500&display=swap",
                 )
 
                 // ── Stylesheet ───────────────────────────────────────────────────

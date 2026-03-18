@@ -22,6 +22,7 @@ import kotlinx.css.flexWrap
 import kotlinx.css.gap
 import kotlinx.css.height
 import kotlinx.css.justifyContent
+import kotlinx.css.letterSpacing
 import kotlinx.css.padding
 import kotlinx.css.properties.AspectRatio
 import kotlinx.css.properties.BoxShadow
@@ -69,9 +70,9 @@ internal fun buildCaseCss(): String = CssBuilder().apply {
     }
 
     rule(".case-page__body") {
+        gap = 60.px
         put("display", "flex")
         put("flex-direction", "column")
-        put("gap", "60px")
         put("width", "100%")
         put("max-width", "var(--content-w)")
         put("padding", "40px var(--page-pad)")
@@ -223,6 +224,12 @@ internal fun buildCaseCss(): String = CssBuilder().apply {
         put("opacity", "0.72")
     }
 
+    rule(".text-highlight") {
+        put("display", "inline")
+        put("padding", "0 6px")
+        put("border-radius", "6px")
+    }
+
     // ── Ordered list ───────────────────────────────────────────────────────
     rule(".case-list") {
         put("display", "flex")
@@ -281,8 +288,8 @@ internal fun buildCaseCss(): String = CssBuilder().apply {
 
     rule(".card-grid-wrap") {
         put("display", "flex")
+        gap = 24.px
         put("flex-direction", "column")
-        put("gap", "16px")
         put("padding", "40px")
         put("border-radius", "40px")
         put("background", "var(--c-card)")
@@ -293,13 +300,13 @@ internal fun buildCaseCss(): String = CssBuilder().apply {
         alignContent = Align.center
         justifyContent = JustifyContent.center
         flexWrap = FlexWrap.wrap
-        gap = 16.px
+        gap = 24.px
         background = "var(--c-card)"
     }
 
     rule(".story-card") {
-        height = 226.px
-        width = 226.px
+        height = 204.px
+        width = 204.px
         aspectRatio = AspectRatio(1, 1)
         display = Display.flex
         flexDirection = FlexDirection.column
@@ -309,10 +316,11 @@ internal fun buildCaseCss(): String = CssBuilder().apply {
     }
 
     rule(".story-card__text") {
+        put("font-family", "'Inter', system-ui, -apple-system, sans-serif")
         put("font-size", "14px")
-        put("font-weight", "500")
         put("line-height", "20px")
         put("color", "rgba(7, 27, 49, 0.90)")
+        letterSpacing = (-0.2).px
     }
 
     rule(".story-card__author") {

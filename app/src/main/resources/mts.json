@@ -76,7 +76,7 @@
           "muted": true
         },
         {
-          "text": "Разбил задачу на User Stories и Job Stories, которые буду реализовывать в сценариях.",
+          "text": "Разбил задачу на <<User Stories|#FFE599>> и <<Job Stories|#CAFF99>>, которые буду реализовывать в сценариях.",
           "muted": false
         }
       ]

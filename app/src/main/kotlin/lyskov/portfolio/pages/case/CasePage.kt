@@ -7,6 +7,7 @@ import kotlinx.html.img
 import kotlinx.html.li
 import kotlinx.html.ol
 import kotlinx.html.p
+import kotlinx.html.span
 import lyskov.portfolio.components.externalLinkCard
 import lyskov.portfolio.components.goodbyeSection
 import lyskov.portfolio.components.storyCard
@@ -109,7 +110,7 @@ object CasePage {
             }
             section.paragraphs.forEach { para ->
                 p(classes = if (para.muted) "case-para case-para--muted" else "case-para") {
-                    +para.text
+                    renderInlineText(para.text)
                 }
             }
             if (section.listHeader.isNotEmpty()) {
@@ -164,5 +165,24 @@ object CasePage {
                 }
             }
         }
+    }
+
+    // ── Inline text with highlights ────────────────────────────────────────
+    //
+    // Syntax: <<текст|цвет>>  e.g. <<User Stories|#FFE27A>>
+    //
+    private val highlightRegex = Regex("<<([^|>]+)\\|([^>]+)>>")
+
+    private fun FlowContent.renderInlineText(text: String) {
+        var last = 0
+        for (match in highlightRegex.findAll(text)) {
+            if (match.range.first > last) +text.substring(last, match.range.first)
+            span(classes = "text-highlight") {
+                attributes["style"] = "background: ${match.groupValues[2]};"
+                +match.groupValues[1]
+            }
+            last = match.range.last + 1
+        }
+        if (last < text.length) +text.substring(last)
     }
 }
