@@ -272,8 +272,8 @@ internal fun buildMainCss(): String = CssBuilder().apply {
     }
 
     rule(".btn-case img") {
-        put("width", "24px")
-        put("height", "24px")
+        put("width", "12px")
+        put("height", "12px")
         put("flex-shrink", "0")
     }
 
