@@ -1,7 +1,10 @@
 package lyskov.portfolio.layout
 
 import kotlinx.css.CssBuilder
+import kotlinx.css.ObjectFit
+import kotlinx.css.borderRadius
 import kotlinx.css.height
+import kotlinx.css.objectFit
 import kotlinx.css.px
 import kotlinx.css.width
 
@@ -335,10 +338,14 @@ internal fun buildMainCss(): String = CssBuilder().apply {
 
     rule(".mini-card__img") {
         put("width", "504px")
-        put("max-width", "100%")
         put("height", "360px")
+        put("min-width", "504px")
+        put("min-height", "360px")
+        put("max-width", "504px")
+        put("max-height", "360px")
         put("object-fit", "cover")
         put("border-radius", "4px")
+        put("flex-shrink", "0")
     }
 
     rule(".mini-card__bottom") {
