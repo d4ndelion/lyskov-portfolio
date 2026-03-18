@@ -1,4 +1,4 @@
-package lyskov.portfolio.pages
+package lyskov.portfolio.pages.index
 
 import kotlinx.html.FlowContent
 import kotlinx.html.a
@@ -7,11 +7,11 @@ import kotlinx.html.img
 import kotlinx.html.p
 import kotlinx.html.section
 import kotlinx.html.span
+import lyskov.portfolio.components.goodbyeSection
 import lyskov.portfolio.layout.renderPage
 import lyskov.portfolio.model.About
 import lyskov.portfolio.model.Case
 import lyskov.portfolio.model.ExtraCase
-import lyskov.portfolio.model.Goodbye
 import lyskov.portfolio.model.Section
 import lyskov.portfolio.model.VideoButton
 import lyskov.portfolio.registry.ContentLoader
@@ -20,10 +20,6 @@ import lyskov.portfolio.registry.PageRegistry
 object IndexPage {
 
     private val page = PageRegistry.all.first { it.urlPath == "/" }
-
-    private object Icons {
-        const val VIDEO_PLAY = "https://www.figma.com/api/mcp/asset/bfdb6c95-d75c-47f4-91a7-174ae97c8c2c"
-    }
 
     fun render(): String = renderPage(page) {
         val content = ContentLoader.content
@@ -37,13 +33,12 @@ object IndexPage {
                     bio = section.bio,
                     videoButton = section.videoButton,
                 )
-
                 is Section.CaseList -> section.items.forEach { renderCase(it) }
                 is Section.Divider -> renderDivider(section.subBadge, section.heading)
                 is Section.ExtraCaseList -> renderExtraCases(section.items)
                 is Section.Outro -> {
                     renderAbout(section.about)
-                    renderGoodbye(section.goodbye)
+                    goodbyeSection(section.goodbye)
                 }
             }
         }
@@ -99,42 +94,28 @@ object IndexPage {
             div(classes = "pg-section__body") {
                 div(classes = "case-body") {
                     div(classes = "case-card") {
-                        // back (black, no clip — sits behind body)
                         div(classes = "case-card__back") {
-                            attributes["style"] =
-                                "background: ${case.color};"
+                            attributes["style"] = "background: ${case.color};"
                         }
-                        // body (gradient + clip-path folder shape)
                         div(classes = "case-card__body") {
                             attributes["style"] =
                                 "background: linear-gradient(180deg, ${case.color} 0%, ${case.colorEnd} 100%);"
                         }
-
                         if (case.cover.isNotEmpty()) {
-                            img(
-                                src = case.cover,
-                                alt = "",
-                                classes = "case-card__cover"
-                            )
+                            img(src = case.cover, alt = "", classes = "case-card__cover")
                         }
-
                         div(classes = "case-card__info") {
-
                             div(classes = "case-card__title-desc") {
-
                                 p(classes = "case-card__title") {
                                     attributes["style"] = "color: ${case.textColor};"
                                     +case.title
                                 }
-
                                 p(classes = "case-card__desc") {
                                     attributes["style"] = "color: ${case.textColor};"
                                     +case.description
                                 }
                             }
-
                             div(classes = "case-card__bottom") {
-
                                 div(classes = "case-card__btn-slot") {
                                     if (case.href.isNotEmpty()) {
                                         a(href = case.href, classes = "btn-case") {
@@ -143,14 +124,9 @@ object IndexPage {
                                         }
                                     }
                                 }
-
                                 div(classes = "case-card__tags") {
                                     case.tags.forEachIndexed { i, label ->
-                                        span(
-                                            classes =
-                                                if (i == 0) "tag"
-                                                else "tag tag--muted"
-                                        ) { +label }
+                                        span(classes = if (i == 0) "tag" else "tag tag--muted") { +label }
                                     }
                                 }
                             }
@@ -216,7 +192,6 @@ object IndexPage {
             div(classes = "pg-section__body") {
                 div(classes = "about-body") {
                     span(classes = "sub-badge") { +about.subBadge }
-                    // Photo row — paths filled in by user via main.json
                     div(classes = "about-photos") {
                         about.aboutPhotos.forEachIndexed { index, photoLink ->
                             div(classes = "about-photo${if (index == 2) " about-photo--sq" else ""}") {
@@ -233,56 +208,6 @@ object IndexPage {
                             p(classes = "about-text") { +para }
                         }
                         p(classes = "about-text--small") { +about.footnote }
-                    }
-                }
-            }
-        }
-    }
-
-    // ── Goodbye ───────────────────────────────────────────────────────────────
-
-    private fun FlowContent.renderGoodbye(goodbye: Goodbye) {
-        val header = ContentLoader.content.header
-        section(classes = "pg-section pg-section--goodbye") {
-            div(classes = "goodbye-body") {
-                div(classes = "goodbye-gif") {
-                    img(src = goodbye.goodbyeGif)
-                }
-                div(classes = "goodbye-text") {
-                    p(classes = "goodbye-text__heading") { +goodbye.heading }
-                    p(classes = "goodbye-text__sub") { +goodbye.sub }
-                }
-                div(classes = "goodbye-contacts") {
-                    div(classes = "goodbye-btn-row") {
-                        val tgLink = header.socialMediaLinks.telegram.link
-                        if (tgLink.isNotEmpty()) {
-                            a(href = tgLink, classes = "btn-write", target = "_blank") {
-                                attributes["rel"] = "noopener"
-                                img(src = "/vector/telegram-icon-white.svg", alt = "")
-                                span { +"Написать" }
-                            }
-                        }
-                        val maxLink = header.socialMediaLinks.max.link
-                        if (maxLink.isNotEmpty()) {
-                            a(href = maxLink, classes = "icon-btn", target = "_blank") {
-                                attributes["aria-label"] = "MAX"
-                                attributes["rel"] = "noopener"
-                                img(src = header.socialMediaLinks.max.icon, alt = "MAX")
-                            }
-                        }
-                        val liLink = header.socialMediaLinks.linkedin.link
-                        if (liLink.isNotEmpty()) {
-                            a(href = liLink, classes = "icon-btn icon-btn--linkedin", target = "_blank") {
-                                attributes["aria-label"] = "LinkedIn"
-                                attributes["rel"] = "noopener"
-                                img(src = header.socialMediaLinks.linkedin.icon, alt = "LinkedIn")
-                            }
-                        }
-                    }
-                    a(href = "#", classes = "goodbye-email") {
-                        attributes["onclick"] = "navigator.clipboard.writeText('${goodbye.email}'); return false;"
-                        span { +goodbye.email }
-                        img(src = "/vector/copy-icon.svg", alt = "")
                     }
                 }
             }

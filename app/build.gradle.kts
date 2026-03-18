@@ -23,9 +23,6 @@ kotlin {
                 implementation(libs.kotlin.css)
             }
         }
-        val jsTest by getting {
-            kotlin.srcDir("src/test/kotlin")
-        }
     }
 }
 
@@ -36,7 +33,7 @@ val resourcesDir: Provider<Directory> = layout.buildDirectory.dir("processedReso
 
 // Pass output and resources paths to the Node.js process via environment variables.
 tasks.withType<org.jetbrains.kotlin.gradle.targets.js.nodejs.NodeJsExec>().configureEach {
-    environment("SITE_OUTPUT_DIR",    siteDir.get().asFile.absolutePath)
+    environment("SITE_OUTPUT_DIR", siteDir.get().asFile.absolutePath)
     environment("SITE_RESOURCES_DIR", resourcesDir.get().asFile.absolutePath)
 }
 
@@ -65,11 +62,11 @@ tasks.register("devServer") {
         project.exec {
             executable = nodeExec
             args(compiledBinary.get().asFile.absolutePath)
-            environment("SITE_MODE",         "serve")
-            environment("SITE_OUTPUT_DIR",   siteDir.get().asFile.absolutePath)
-            environment("SITE_SRC_DIR",      layout.projectDirectory.dir("src/main").asFile.absolutePath)
+            environment("SITE_MODE", "serve")
+            environment("SITE_OUTPUT_DIR", siteDir.get().asFile.absolutePath)
+            environment("SITE_SRC_DIR", layout.projectDirectory.dir("src/main").asFile.absolutePath)
             environment("SITE_GRADLEW_PATH", rootProject.file("gradlew").absolutePath)
-            environment("SITE_ROOT_DIR",     rootProject.projectDir.absolutePath)
+            environment("SITE_ROOT_DIR", rootProject.projectDir.absolutePath)
         }
     }
 }
@@ -87,13 +84,16 @@ tasks.register("verifySite") {
         }
 
         val siteRoot = siteDir.get().asFile
-        val indexText   = siteRoot.resolve("index.html").also { verify(it.exists(), "index.html not found in build/site") }.readText()
-        val sitemapText = siteRoot.resolve("sitemap.xml").also { verify(it.exists(), "sitemap.xml not found in build/site") }.readText()
-        verify(siteRoot.resolve("404.html").exists(),   "404.html not found in build/site")
+        val indexText =
+            siteRoot.resolve("index.html").also { verify(it.exists(), "index.html not found in build/site") }.readText()
+        val sitemapText =
+            siteRoot.resolve("sitemap.xml").also { verify(it.exists(), "sitemap.xml not found in build/site") }
+                .readText()
+        verify(siteRoot.resolve("404.html").exists(), "404.html not found in build/site")
         verify(siteRoot.resolve("robots.txt").exists(), "robots.txt not found in build/site")
 
         val domain = expectedDomain.get()
-        verify(sitemapText.contains(domain),    "sitemap.xml does not reference the index page URL")
+        verify(sitemapText.contains(domain), "sitemap.xml does not reference the index page URL")
         verify(indexText.contains("canonical"), "index.html is missing a canonical <link> tag")
 
         logger.lifecycle("✓ All site verification checks passed.")

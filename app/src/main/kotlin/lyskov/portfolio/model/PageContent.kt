@@ -16,6 +16,7 @@ data class PageContent(
 @Serializable
 data class Header(
     val logo: String,
+    val avatar: String = "",
     val dividerIcon: String,
     val locationString: String,
     val socialMediaLinks: SocialMediaLinks,

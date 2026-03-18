@@ -10,19 +10,15 @@ import kotlinx.html.main
 import kotlinx.html.meta
 import kotlinx.html.stream.appendHTML
 import kotlinx.html.title
+import lyskov.portfolio.components.caseHeader
+import lyskov.portfolio.components.siteFooter
+import lyskov.portfolio.components.siteHeader
 import lyskov.portfolio.model.Page
 import lyskov.portfolio.seo.SeoConfig
 
-/**
- * Wraps page content in the full HTML document shell.
- *
- * Returns a complete HTML5 document string including DOCTYPE.
- *
- * @param page     Metadata for the page being rendered.
- * @param content  Lambda that populates the `<main>` element.
- */
-fun renderPage(page: Page, content: FlowContent.() -> Unit): String {
+fun renderPage(page: Page, breadcrumb: String? = null, content: FlowContent.() -> Unit): String {
     val canonicalUrl = "${SeoConfig.DOMAIN}${page.urlPath}"
+    val cssFile = if (breadcrumb != null) "/case-styles.css" else "/styles.css"
 
     return buildString {
         append("<!DOCTYPE html>\n")
@@ -68,11 +64,11 @@ fun renderPage(page: Page, content: FlowContent.() -> Unit): String {
                 )
 
                 // ── Stylesheet ───────────────────────────────────────────────────
-                link(rel = "stylesheet", href = "/styles.css")
+                link(rel = "stylesheet", href = cssFile)
             }
 
             body {
-                siteHeader(page.urlPath)
+                if (breadcrumb != null) caseHeader(breadcrumb) else siteHeader()
 
                 main(classes = "site-main") {
                     attributes["id"] = "main-content"

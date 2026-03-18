@@ -6,8 +6,10 @@ import lyskov.portfolio.js.readFileSync
 import lyskov.portfolio.js.statSync
 import lyskov.portfolio.js.writeFileSync
 import lyskov.portfolio.layout.Css
-import lyskov.portfolio.pages.IndexPage
 import lyskov.portfolio.pages.NotFoundPage
+import lyskov.portfolio.pages.case.CasePage
+import lyskov.portfolio.pages.index.IndexPage
+import lyskov.portfolio.registry.CaseLoader
 import lyskov.portfolio.registry.ContentLoader
 import lyskov.portfolio.registry.PageRegistry
 import lyskov.portfolio.seo.SeoConfig
@@ -25,8 +27,9 @@ object SiteGenerator {
     fun generate(outputDir: String, resourcesDir: String) {
         ContentLoader.init(resourcesDir)
         mkdirSync(outputDir, js("({ recursive: true })"))
-        generatePages(outputDir)
-        write(outputDir, "styles.css",  Css.STYLESHEET)
+        generatePages(outputDir, resourcesDir)
+        write(outputDir, "styles.css",      Css.MAIN_STYLESHEET)
+        write(outputDir, "case-styles.css", Css.CASE_STYLESHEET)
         write(outputDir, "robots.txt",  buildRobotsTxt())
         write(outputDir, "sitemap.xml", buildSitemap())
         write(outputDir, "CNAME",       SeoConfig.CNAME_DOMAIN)
@@ -36,9 +39,13 @@ object SiteGenerator {
 
     // ─── Pages ────────────────────────────────────────────────────────────────
 
-    private fun generatePages(outputDir: String) {
+    private fun generatePages(outputDir: String, resourcesDir: String) {
         write(outputDir, "index.html", IndexPage.render())
         write(outputDir, "404.html",   NotFoundPage.render())
+
+        val mtsCasePage = PageRegistry.all.first { it.urlPath == "/cases/mts/" }
+        val mtsCaseContent = CaseLoader.load(resourcesDir, "mts")
+        write(outputDir, mtsCasePage.fileName, CasePage.render(mtsCaseContent, mtsCasePage))
     }
 
     // ─── robots.txt ───────────────────────────────────────────────────────────

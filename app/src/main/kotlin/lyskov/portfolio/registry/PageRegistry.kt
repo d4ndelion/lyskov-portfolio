@@ -23,5 +23,12 @@ object PageRegistry {
             urlPath     = "/",
         ),
 
+        Page(
+            title       = "МТС Web Services — Lyskov",
+            description = "Проектировал интерфейс приглашения пользователей в проект для бигтеха. Получил положительные отзывы от пользователей и команды найма.",
+            fileName    = "cases/mts/index.html",
+            urlPath     = "/cases/mts/",
+        ),
+
     )
 }

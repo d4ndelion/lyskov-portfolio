@@ -1,6 +1,7 @@
 {
   "header": {
     "logo": "/vector/il-logo.svg",
+    "avatar": "/image/ilya-flower.png",
     "dividerIcon": "/vector/star-divider.svg",
     "locationString": "Москва",
     "socialMediaLinks": {
@@ -68,7 +69,7 @@
           "title": "Успешное тестовое в МТС Web Services",
           "description": "Проектировал интерфейс приглашения пользователей в проект для бигтеха. Получил положительные отзывы от пользователей и команды найма",
           "tags": ["2025", "Telecom", "Web"],
-          "href": "",
+          "href": "/cases/mts/",
           "cover": "",
           "color": "#F2E0E4",
           "colorEnd": "#ebedef"

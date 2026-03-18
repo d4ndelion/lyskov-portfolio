@@ -102,7 +102,8 @@ object DevServer {
             return
         }
 
-        val urlPath = if (url.split("?")[0] == "/") "/index.html" else url.split("?")[0]
+        val rawPath = url.split("?")[0]
+        val urlPath = if (rawPath.endsWith("/")) "${rawPath}index.html" else rawPath
         val filePath = join(siteDir, urlPath)
 
         access(filePath, R_OK) { err ->
