@@ -13,7 +13,6 @@ import lyskov.portfolio.registry.ContentLoader
 fun FlowContent.siteHeader() {
     val h = ContentLoader.content.header
     header(classes = "site-header") {
-        a(href = "#main-content", classes = "skip-link") { +"Перейти к содержимому" }
         div(classes = "site-header__body") {
 
             div(classes = "site-header__left") {
@@ -38,7 +37,6 @@ fun FlowContent.siteHeader() {
 fun FlowContent.caseHeader(breadcrumb: String) {
     val h = ContentLoader.content.header
     header(classes = "site-header") {
-        a(href = "#main-content", classes = "skip-link") { +"Перейти к содержимому" }
         div(classes = "site-header__body") {
 
             div(classes = "site-header__left") {
