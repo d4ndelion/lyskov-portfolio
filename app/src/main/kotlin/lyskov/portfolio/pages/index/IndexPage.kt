@@ -158,10 +158,8 @@ object IndexPage {
                 div(classes = "extra-grid") {
                     items.forEach { ec ->
                         div(classes = "mini-card") {
-                            div(classes = "mini-card__content") {
-                                if (ec.image.isNotEmpty()) {
-                                    img(src = ec.image, alt = ec.title, classes = "mini-card__img")
-                                }
+                            if (ec.image.isNotEmpty()) {
+                                img(src = ec.image, alt = ec.title, classes = "mini-card__img")
                             }
                             div(classes = "mini-card__bottom") {
                                 div(classes = "mini-card__text") {

@@ -328,24 +328,11 @@ internal fun buildMainCss(): String = CssBuilder().apply {
         put("pointer-events", "none")
     }
 
-    rule(".mini-card__content") {
-        put("display", "flex")
-        put("align-items", "center")
-        put("justify-content", "center")
-        put("width", "100%")
-        put("height", "400px")
-    }
-
     rule(".mini-card__img") {
-        put("width", "504px")
-        put("height", "360px")
-        put("min-width", "504px")
-        put("min-height", "360px")
-        put("max-width", "504px")
-        put("max-height", "360px")
+        put("width", "100%")
+        put("aspect-ratio", "504 / 360")
         put("object-fit", "cover")
         put("border-radius", "4px")
-        put("flex-shrink", "0")
     }
 
     rule(".mini-card__bottom") {
