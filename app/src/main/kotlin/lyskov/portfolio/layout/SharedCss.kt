@@ -266,7 +266,7 @@ internal fun buildSharedCss(): String = CssBuilder().apply {
 
     // ── Tag pill ───────────────────────────────────────────────────────────
     rule(".tag") {
-        put("background", "var(--c-tag-bg)")
+        put("background", "#EBEDEF")
         put("height", "40px")
         put("display", "inline-flex")
         put("align-items", "center")

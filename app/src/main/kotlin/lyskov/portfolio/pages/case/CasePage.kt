@@ -8,6 +8,7 @@ import kotlinx.html.li
 import kotlinx.html.ol
 import kotlinx.html.p
 import kotlinx.html.span
+import kotlinx.html.ul
 import lyskov.portfolio.components.externalLinkCard
 import lyskov.portfolio.components.goodbyeSection
 import lyskov.portfolio.components.storyCard
@@ -27,7 +28,7 @@ object CasePage {
 
                     renderHeadInfo(
                         content.headInfo.tags, content.headInfo.title,
-                        content.headInfo.description, content.headInfo.links
+                        content.headInfo.description, content.headInfo.links, content.headInfo.warning,
                     )
 
                     content.sections.forEach { renderSection(it) }
@@ -51,6 +52,7 @@ object CasePage {
         title: String,
         description: String,
         links: List<ExternalLink>,
+        warning: String?,
     ) {
         div(classes = "case-head-info") {
             tagRow(tags, classes = "case-tags")
@@ -59,6 +61,14 @@ object CasePage {
             if (links.isNotEmpty()) {
                 div(classes = "case-links-row") {
                     links.forEach { externalLinkCard(it) }
+                }
+            }
+            if (!warning.isNullOrEmpty()) {
+                p(classes = "case-warning") {
+                    img(src = "/vector/warning.svg", classes = "case-heading-icon") {
+                        attributes["style"] = "margin-left:0; margin-right:12px; width:20px; height:20px"
+                    }
+                    +warning
                 }
             }
         }
@@ -91,10 +101,17 @@ object CasePage {
                 }
             }
         } else {
-            div(classes = "case-img-block") {
-                attributes["style"] = bgStyle
-                if (block.image.isNotEmpty()) {
-                    img(src = block.image, alt = "", classes = "case-img-block__img")
+            div {
+                div(classes = "case-img-block") {
+                    attributes["style"] = bgStyle
+                    if (block.image.isNotEmpty()) {
+                        img(src = block.image, alt = "", classes = "case-img-block__img")
+                    }
+                }
+                if (!block.description.isNullOrEmpty()) {
+                    p(classes = "case-img-description") {
+                        +block.description
+                    }
                 }
             }
         }
@@ -105,13 +122,11 @@ object CasePage {
             if (section.heading.isNotEmpty()) {
                 p(classes = "case-section-heading") {
                     if (section.sectionId.isNotEmpty()) attributes["id"] = section.sectionId
-                    +section.heading
+                    renderHeadingText(section.heading)
                 }
             }
             section.paragraphs.forEach { para ->
-                p(classes = if (para.muted) "case-para case-para--muted" else "case-para") {
-                    renderInlineText(para.text)
-                }
+                renderParagraph(para.text, para.muted)
             }
             if (section.listHeader.isNotEmpty()) {
                 p(classes = "case-para case-para--muted") { +section.listHeader }
@@ -129,9 +144,7 @@ object CasePage {
                 }
             }
             section.postParagraphs.forEach { para ->
-                p(classes = if (para.muted) "case-para case-para--muted" else "case-para") {
-                    renderInlineText(para.text)
-                }
+                renderParagraph(para.text, para.muted)
             }
         }
     }
@@ -149,7 +162,7 @@ object CasePage {
 
     private fun FlowContent.renderStepList(section: CaseSection.StepList) {
         div(classes = "case-text-section") {
-            p(classes = "case-section-heading") { +section.heading }
+            p(classes = "case-section-heading") { renderHeadingText(section.heading) }
             if (section.intro.isNotEmpty()) {
                 p(classes = "case-para case-para--muted") { +section.intro }
             }
@@ -170,6 +183,57 @@ object CasePage {
                 }
             }
         }
+    }
+
+    // ── Heading text with inline images ────────────────────────────────────
+    //
+    // Syntax: <img src="/vector/star-divider.svg">  (only src is extracted)
+    //
+    private val headingImgRegex = Regex("""<img\s+src="([^"]+)"[^>]*>""")
+
+    private fun FlowContent.renderHeadingText(text: String) {
+        var last = 0
+        for (match in headingImgRegex.findAll(text)) {
+            if (match.range.first > last) +text.substring(last, match.range.first)
+            img(src = match.groupValues[1], alt = "", classes = "case-heading-icon")
+            last = match.range.last + 1
+        }
+        if (last < text.length) +text.substring(last)
+    }
+
+    // ── Paragraph with optional embedded <ol>/<ul> lists ──────────────────
+    //
+    // Allows mixing text and block lists inside a single JSON paragraph:
+    //   "text": "Intro:\n<ol><li>One</li><li>Two</li></ol>\nOutro"
+    //
+    private val listBlockRegex = Regex("""<(ol|ul)>([\s\S]*?)</(ol|ul)>""")
+    private val listItemRegex  = Regex("""<li>([\s\S]*?)</li>""")
+
+    private fun FlowContent.renderParagraph(text: String, muted: Boolean) {
+        val paraClass = if (muted) "case-para case-para--muted" else "case-para"
+        val matches = listBlockRegex.findAll(text).toList()
+        if (matches.isEmpty()) {
+            p(classes = paraClass) { renderInlineText(text) }
+            return
+        }
+        var last = 0
+        for (match in matches) {
+            val before = text.substring(last, match.range.first).trim()
+            if (before.isNotEmpty()) p(classes = paraClass) { renderInlineText(before) }
+            val items = listItemRegex.findAll(match.groupValues[2]).map { it.groupValues[1] }.toList()
+            if (match.groupValues[1] == "ul") {
+                ul(classes = "case-list case-list--ul") {
+                    items.forEach { item -> li(classes = "case-list__item") { renderInlineText(item) } }
+                }
+            } else {
+                ol(classes = "case-list") {
+                    items.forEach { item -> li(classes = "case-list__item") { renderInlineText(item) } }
+                }
+            }
+            last = match.range.last + 1
+        }
+        val after = text.substring(last).trim()
+        if (after.isNotEmpty()) p(classes = paraClass) { renderInlineText(after) }
     }
 
     // ── Inline text with highlights ────────────────────────────────────────

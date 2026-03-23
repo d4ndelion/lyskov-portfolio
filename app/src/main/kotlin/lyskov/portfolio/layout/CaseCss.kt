@@ -4,28 +4,39 @@ import kotlinx.css.Align
 import kotlinx.css.Color
 import kotlinx.css.CssBuilder
 import kotlinx.css.Display
-import kotlinx.css.Flex
 import kotlinx.css.FlexDirection
 import kotlinx.css.FlexWrap
+import kotlinx.css.FontWeight
 import kotlinx.css.JustifyContent
+import kotlinx.css.Margin
 import kotlinx.css.Padding
+import kotlinx.css.Position
 import kotlinx.css.alignContent
+import kotlinx.css.alignItems
 import kotlinx.css.aspectRatio
 import kotlinx.css.background
-import kotlinx.css.borderColor
+import kotlinx.css.backgroundColor
+import kotlinx.css.borderRadius
 import kotlinx.css.boxShadow
+import kotlinx.css.color
 import kotlinx.css.display
-import kotlinx.css.filter
-import kotlinx.css.flex
+import kotlinx.css.em
 import kotlinx.css.flexDirection
 import kotlinx.css.flexWrap
+import kotlinx.css.fontSize
+import kotlinx.css.fontWeight
 import kotlinx.css.gap
 import kotlinx.css.height
 import kotlinx.css.justifyContent
 import kotlinx.css.letterSpacing
+import kotlinx.css.lineHeight
+import kotlinx.css.margin
+import kotlinx.css.opacity
 import kotlinx.css.padding
+import kotlinx.css.position
 import kotlinx.css.properties.AspectRatio
 import kotlinx.css.properties.BoxShadow
+import kotlinx.css.properties.lh
 import kotlinx.css.px
 import kotlinx.css.width
 
@@ -113,6 +124,12 @@ internal fun buildCaseCss(): String = CssBuilder().apply {
         put("gap", "12px")
     }
 
+    rule(".case-warning") {
+        fontSize = 20.px
+        put("line-height", "28px")
+        put("color", "var(--c-ink-40)")
+    }
+
     // ── External link card ─────────────────────────────────────────────────
     rule(".case-ext-link") {
         put("display", "inline-flex")
@@ -180,6 +197,16 @@ internal fun buildCaseCss(): String = CssBuilder().apply {
         put("border-radius", "12px")
     }
 
+    rule(".case-img-description") {
+        margin = Margin(top = 24.px)
+        opacity = .6
+        width = 800.px
+        fontSize = 20.px
+        lineHeight = 28.px.lh
+        color = Color("#071B31")
+        fontWeight = FontWeight.normal
+    }
+
     rule(".case-img-block--placeholder") {
         put("flex-direction", "column")
         put("align-items", "stretch")
@@ -211,6 +238,16 @@ internal fun buildCaseCss(): String = CssBuilder().apply {
         put("scroll-margin-top", "calc(var(--header-h) + 24px)")
     }
 
+    rule(".case-heading-icon") {
+        margin = Margin(horizontal = 22.px)
+        put("display", "inline-block")
+        put("width", "16px")
+        put("height", "16px")
+        put("vertical-align", "middle")
+        put("position", "relative")
+        put("top", "-1px")
+    }
+
     rule(".case-para") {
         put("font-size", "20px")
         put("font-weight", "500")
@@ -235,14 +272,16 @@ internal fun buildCaseCss(): String = CssBuilder().apply {
         put("flex-direction", "column")
         put("gap", "0")
         put("padding-left", "28px")
-        put("opacity", "0.72")
     }
 
     rule(".case-list__item") {
         put("font-size", "20px")
         put("font-weight", "500")
         put("line-height", "28px")
-        put("color", "var(--c-ink)")
+    }
+
+    rule(".case-list--ul") {
+        put("list-style-type", "disc")
     }
 
     // ── Step list ──────────────────────────────────────────────────────────
@@ -328,6 +367,23 @@ internal fun buildCaseCss(): String = CssBuilder().apply {
         put("line-height", "18px")
         put("color", "rgba(7, 27, 49, 0.55)")
         put("margin-top", "auto")
+    }
+
+    rule(".story-card__ordinal") {
+        position = Position.absolute
+        margin = Margin(162.px)
+        display = Display.flex
+        alignItems = Align.center
+        justifyContent = JustifyContent.center
+        backgroundColor = Color.white
+        borderRadius = 1.em
+        width = 32.px
+        height = 32.px
+    }
+
+    rule(".story-card__bottom") {
+        display = Display.flex
+        justifyContent = JustifyContent.spaceBetween
     }
 
 }.toString()

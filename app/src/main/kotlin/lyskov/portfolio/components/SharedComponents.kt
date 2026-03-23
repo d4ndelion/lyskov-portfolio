@@ -33,6 +33,9 @@ fun FlowContent.storyCard(card: StoryCard) {
         if (card.author.isNotEmpty()) {
             p(classes = "story-card__author") { +card.author }
         }
+        if (card.ordinal != null) {
+            span(classes = "story-card__ordinal") { +card.ordinal.toString() }
+        }
     }
 }
 

@@ -46,6 +46,14 @@ object SiteGenerator {
         val mtsCasePage = PageRegistry.all.first { it.urlPath == "/cases/mts/" }
         val mtsCaseContent = CaseLoader.load(resourcesDir, "mts")
         write(outputDir, mtsCasePage.fileName, CasePage.render(mtsCaseContent, mtsCasePage))
+
+        val bflCasePage = PageRegistry.all.first { it.urlPath == "/cases/bfl/" }
+        val bflCaseContent = CaseLoader.load(resourcesDir, "bfl")
+        write(outputDir, bflCasePage.fileName, CasePage.render(bflCaseContent, bflCasePage))
+
+        val amongOwnCasePage = PageRegistry.all.first { it.urlPath == "/cases/among-own/" }
+        val amongOwnCaseContent = CaseLoader.load(resourcesDir, "amongOwn")
+        write(outputDir, amongOwnCasePage.fileName, CasePage.render(amongOwnCaseContent, amongOwnCasePage))
     }
 
     // ─── robots.txt ───────────────────────────────────────────────────────────

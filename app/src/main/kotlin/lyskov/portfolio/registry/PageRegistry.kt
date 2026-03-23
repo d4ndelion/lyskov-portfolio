@@ -30,5 +30,19 @@ object PageRegistry {
             urlPath     = "/cases/mts/",
         ),
 
+        Page(
+            title       = "BFL — Lyskov",
+            description = "С нуля погрузился в сложный домен и спроектировал B2B-систему для ведения банкротства физических лиц. Получил крутой фидбек от пользователей и уложился в короткие сроки.",
+            fileName    = "cases/bfl/index.html",
+            urlPath     = "/cases/bfl/",
+        ),
+
+        Page(
+            title       = "Among Own — Lyskov",
+            description = "Разработал концепцию, исследовал пользователей и спроектировал полноценный MVP мобильного приложения для деловых знакомств.",
+            fileName    = "cases/among-own/index.html",
+            urlPath     = "/cases/among-own/",
+        ),
+
     )
 }

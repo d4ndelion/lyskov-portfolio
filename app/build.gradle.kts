@@ -64,9 +64,11 @@ tasks.register("devServer") {
             args(compiledBinary.get().asFile.absolutePath)
             environment("SITE_MODE", "serve")
             environment("SITE_OUTPUT_DIR", siteDir.get().asFile.absolutePath)
+            environment("SITE_RESOURCES_DIR", resourcesDir.get().asFile.absolutePath)
             environment("SITE_SRC_DIR", layout.projectDirectory.dir("src/main").asFile.absolutePath)
             environment("SITE_GRADLEW_PATH", rootProject.file("gradlew").absolutePath)
             environment("SITE_ROOT_DIR", rootProject.projectDir.absolutePath)
+            environment("SITE_BINARY_PATH", compiledBinary.get().asFile.absolutePath)
         }
     }
 }

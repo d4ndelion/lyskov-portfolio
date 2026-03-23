@@ -13,7 +13,8 @@ fun main() {
             val srcDir      = js("process.env['SITE_SRC_DIR']")      as? String ?: "src/main"
             val gradlewPath = js("process.env['SITE_GRADLEW_PATH']") as? String ?: "./gradlew"
             val rootDir     = js("process.env['SITE_ROOT_DIR']")     as? String ?: "."
-            DevServer.start(outputDir, srcDir, gradlewPath, rootDir)
+            val binaryPath  = js("process.env['SITE_BINARY_PATH']")  as? String
+            DevServer.start(outputDir, resourcesDir, srcDir, gradlewPath, rootDir, binaryPath)
         }
         else -> SiteGenerator.generate(outputDir, resourcesDir)
     }

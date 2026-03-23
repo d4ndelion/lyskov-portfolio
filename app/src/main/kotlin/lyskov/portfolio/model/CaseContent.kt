@@ -24,6 +24,7 @@ data class CaseHeadInfo(
     val title: String,
     val description: String,
     val links: List<ExternalLink>,
+    val warning: String? = null,
 )
 
 @Serializable
@@ -49,6 +50,7 @@ sealed class CaseSection {
         val accent: String = "",
         /** If non-empty, renders placeholder rows instead of an image (widths as CSS values, e.g. "100%", "59%"). */
         val placeholders: List<String> = emptyList(),
+        val description: String? = null,
     ) : CaseSection()
 
     @Serializable
@@ -89,4 +91,5 @@ data class StoryCard(
     val author: String = "",
     /** CSS color value for the card background, e.g. "#BBEA80" or "var(--c-card-green)". */
     val color: String = "#BBEA80",
+    val ordinal: Int? = null,
 )
