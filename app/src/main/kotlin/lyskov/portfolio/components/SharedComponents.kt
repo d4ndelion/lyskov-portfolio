@@ -1,5 +1,6 @@
 package lyskov.portfolio.components
 
+import kotlinx.css.Color
 import kotlinx.html.FlowContent
 import kotlinx.html.a
 import kotlinx.html.div
@@ -12,20 +13,21 @@ import lyskov.portfolio.model.StoryCard
 // ─── Tags ─────────────────────────────────────────────────────────────────────
 
 /** Renders a row of tags. First tag is accented, rest are muted. */
-fun FlowContent.tagRow(tags: List<String>, classes: String = "tag-row") {
+fun FlowContent.tagRow(tags: List<String>, classes: String = "tag-row", color: Color? = null) {
     div(classes = classes) {
         tags.forEachIndexed { i, label ->
-            span(classes = if (i == 0) "tag" else "tag tag--muted") { +label }
+            span(classes = if (i == 0) "tag" else "tag tag--muted") {
+                if (color != null) {
+                    attributes["style"] = "background: ${color.value};"
+                }
+                +label
+            }
         }
     }
 }
 
 // ─── Story card ───────────────────────────────────────────────────────────────
 
-/**
- * Sticky-note style card used in discovery / UX-research sections.
- * [card.color] is any CSS color value, e.g. "#BBEA80" (green) or "#FFE27A" (yellow).
- */
 fun FlowContent.storyCard(card: StoryCard) {
     div(classes = "story-card") {
         attributes["style"] = "background: ${card.color};"
@@ -47,7 +49,7 @@ fun FlowContent.externalLinkCard(link: ExternalLink) {
         div(classes = "case-ext-link__info") {
             val iconSrc = when (link.icon) {
                 "figma" -> "/vector/figma-icon.svg"
-                else    -> "/vector/link-icon.svg"
+                else -> "/vector/link-icon.svg"
             }
             img(src = iconSrc, alt = "", classes = "case-ext-link__icon")
             span(classes = "case-ext-link__label") { +link.label }

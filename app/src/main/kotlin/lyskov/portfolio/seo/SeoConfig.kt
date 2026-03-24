@@ -9,7 +9,7 @@ object SeoConfig {
     const val DOMAIN = "https://ilyskov.site"
 
     /** Human-readable site name used in OG tags. */
-    const val SITE_NAME = "Lyskov Portfolio"
+    const val SITE_NAME = "Илья Лысков, Продуктовый дизайнер"
 
     /** Twitter / X handle including the @ symbol. */
     const val TWITTER_HANDLE = "@lyskov"

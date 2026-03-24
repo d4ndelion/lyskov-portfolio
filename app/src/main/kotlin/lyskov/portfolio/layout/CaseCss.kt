@@ -197,6 +197,10 @@ internal fun buildCaseCss(): String = CssBuilder().apply {
         put("border-radius", "12px")
     }
 
+    rule(".no-padding") {
+        padding = Padding(0.px)
+    }
+
     rule(".case-img-description") {
         margin = Margin(top = 24.px)
         opacity = .6

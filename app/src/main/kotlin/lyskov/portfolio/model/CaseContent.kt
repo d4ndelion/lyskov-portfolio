@@ -47,6 +47,7 @@ sealed class CaseSection {
     @SerialName("imageBlock")
     data class ImageBlock(
         val image: String = "",
+        val innerPadding: Boolean = true,
         val accent: String = "",
         /** If non-empty, renders placeholder rows instead of an image (widths as CSS values, e.g. "100%", "59%"). */
         val placeholders: List<String> = emptyList(),

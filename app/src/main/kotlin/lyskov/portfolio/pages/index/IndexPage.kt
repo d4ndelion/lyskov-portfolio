@@ -1,5 +1,6 @@
 package lyskov.portfolio.pages.index
 
+import kotlinx.css.Color
 import kotlinx.html.FlowContent
 import kotlinx.html.a
 import kotlinx.html.div
@@ -8,6 +9,7 @@ import kotlinx.html.p
 import kotlinx.html.section
 import kotlinx.html.span
 import lyskov.portfolio.components.goodbyeSection
+import lyskov.portfolio.components.tagRow
 import lyskov.portfolio.layout.renderPage
 import lyskov.portfolio.model.About
 import lyskov.portfolio.model.Case
@@ -33,6 +35,7 @@ object IndexPage {
                     bio = section.bio,
                     videoButton = section.videoButton,
                 )
+
                 is Section.CaseList -> section.items.forEach { renderCase(it) }
                 is Section.Divider -> renderDivider(section.subBadge, section.heading)
                 is Section.ExtraCaseList -> renderExtraCases(section.items)
@@ -124,11 +127,7 @@ object IndexPage {
                                         }
                                     }
                                 }
-                                div(classes = "case-card__tags") {
-                                    case.tags.forEachIndexed { i, label ->
-                                        span(classes = if (i == 0) "tag" else "tag tag--muted") { +label }
-                                    }
-                                }
+                                tagRow(case.tags, "case-card__tags", Color.white)
                             }
                         }
                     }

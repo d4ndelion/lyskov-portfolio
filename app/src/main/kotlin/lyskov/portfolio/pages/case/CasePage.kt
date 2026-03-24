@@ -101,8 +101,9 @@ object CasePage {
                 }
             }
         } else {
+            val paddingClass = if (!block.innerPadding) "no-padding" else ""
             div {
-                div(classes = "case-img-block") {
+                div(classes = "case-img-block $paddingClass") {
                     attributes["style"] = bgStyle
                     if (block.image.isNotEmpty()) {
                         img(src = block.image, alt = "", classes = "case-img-block__img")

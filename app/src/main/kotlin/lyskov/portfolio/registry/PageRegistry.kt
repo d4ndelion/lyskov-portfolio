@@ -17,7 +17,7 @@ object PageRegistry {
     val all: List<Page> = listOf(
 
         Page(
-            title       = "Portfolio — Lyskov",
+            title       = "Илья Лысков — Продуктовый дизайнер",
             description = "Designer portfolio showcasing projects, skills, and experience.",
             fileName    = "index.html",
             urlPath     = "/",
