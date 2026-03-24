@@ -173,6 +173,11 @@
       "accent": ""
     },
     {
+      "type": "imageBlock",
+      "image": "/image/among-own-screens6.png",
+      "accent": ""
+    },
+    {
       "type": "textSection",
       "heading": "Валидация решений",
       "sectionId": "валидация",
@@ -196,7 +201,7 @@
     },
     {
       "type": "imageBlock",
-      "image": "/image/among-own-screens5.png",
+      "image": "/image/among-own-screens7.png",
       "accent": ""
     },
     {
@@ -222,7 +227,7 @@
     },
     {
       "type": "imageBlock",
-      "image": "/image/among-own-screens6.png",
+      "image": "/image/among-own-screens5.png",
       "accent": ""
     },
     {
