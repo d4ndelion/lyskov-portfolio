@@ -18,27 +18,27 @@ object PageRegistry {
 
         Page(
             title       = "Portfolio — Lyskov",
-            description = "Full-stack developer portfolio showcasing projects, skills, and experience.",
+            description = "Designer portfolio showcasing projects, skills, and experience.",
             fileName    = "index.html",
             urlPath     = "/",
         ),
 
         Page(
-            title       = "МТС Web Services — Lyskov",
+            title       = "Кейс: МТС Web Services",
             description = "Проектировал интерфейс приглашения пользователей в проект для бигтеха. Получил положительные отзывы от пользователей и команды найма.",
             fileName    = "cases/mts/index.html",
             urlPath     = "/cases/mts/",
         ),
 
         Page(
-            title       = "BFL — Lyskov",
+            title       = "Кейс: BFL",
             description = "С нуля погрузился в сложный домен и спроектировал B2B-систему для ведения банкротства физических лиц. Получил крутой фидбек от пользователей и уложился в короткие сроки.",
             fileName    = "cases/bfl/index.html",
             urlPath     = "/cases/bfl/",
         ),
 
         Page(
-            title       = "Among Own — Lyskov",
+            title       = "Кейс: Свой Среди Своих",
             description = "Разработал концепцию, исследовал пользователей и спроектировал полноценный MVP мобильного приложения для деловых знакомств.",
             fileName    = "cases/among-own/index.html",
             urlPath     = "/cases/among-own/",

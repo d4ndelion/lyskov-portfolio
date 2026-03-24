@@ -106,6 +106,10 @@ object CasePage {
                     attributes["style"] = bgStyle
                     if (block.image.isNotEmpty()) {
                         img(src = block.image, alt = "", classes = "case-img-block__img")
+                    } else {
+                        div {
+                            attributes["style"] = "width: 680px; height: 1200px;"
+                        }
                     }
                 }
                 if (!block.description.isNullOrEmpty()) {
@@ -207,7 +211,7 @@ object CasePage {
     //   "text": "Intro:\n<ol><li>One</li><li>Two</li></ol>\nOutro"
     //
     private val listBlockRegex = Regex("""<(ol|ul)>([\s\S]*?)</(ol|ul)>""")
-    private val listItemRegex  = Regex("""<li>([\s\S]*?)</li>""")
+    private val listItemRegex = Regex("""<li>([\s\S]*?)</li>""")
 
     private fun FlowContent.renderParagraph(text: String, muted: Boolean) {
         val paraClass = if (muted) "case-para case-para--muted" else "case-para"
