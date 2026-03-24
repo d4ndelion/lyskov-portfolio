@@ -51,9 +51,9 @@ fun renderPage(page: Page, breadcrumb: String? = null, content: FlowContent.() -
                 meta(name = "twitter:description", content = page.description)
 
                 // ── Favicon ──────────────────────────────────────────────────────
-                link(rel = "icon", type = "image/x-icon", href = "/favicon.ico")
-                link(rel = "icon", type = "image/svg+xml", href = "/favicon.svg")
-                link(rel = "apple-touch-icon",    href = "/apple-touch-icon.png")
+                link(rel = "icon", type = "image/x-icon", href = "/favicon/favicon.ico")
+                link(rel = "icon", type = "image/svg+xml", href = "/favicon/favicon.svg")
+                link(rel = "apple-touch-icon",    href = "/favicon/apple-touch-icon.png")
 
                 // ── Fonts ────────────────────────────────────────────────────────
                 link(rel = "preconnect", href = "https://fonts.googleapis.com")
