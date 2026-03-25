@@ -95,12 +95,16 @@ data class Case(
     val description: String,
     val tags: List<String>,
     val href: String,
-    val cover: String = "",
+    val covers: List<String> = emptyList(),
+    /** Interval in ms between slide transitions. Only used when covers has more than one image. */
+    val slideInterval: Int = 3000,
     val color: String = "#e8ebed",
     /** Gradient end color (bottom of card). Defaults to neutral light gray. */
     val colorEnd: String = "#ebedef",
     /** Text color for title and description. Use "#ffffff" for dark backgrounds. */
     val textColor: String = "#071b31",
+    val backgroundImage: String = "",
+    val isMobileCase: Boolean = false,
 )
 
 @Serializable

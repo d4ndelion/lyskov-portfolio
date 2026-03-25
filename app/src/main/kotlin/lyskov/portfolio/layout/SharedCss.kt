@@ -1,9 +1,25 @@
 package lyskov.portfolio.layout
 
+import kotlinx.css.Color
 import kotlinx.css.CssBuilder
+import kotlinx.css.Display
+import kotlinx.css.FlexDirection
+import kotlinx.css.FontWeight
+import kotlinx.css.Margin
 import kotlinx.css.Padding
+import kotlinx.css.color
+import kotlinx.css.display
+import kotlinx.css.flexDirection
+import kotlinx.css.fontSize
+import kotlinx.css.fontWeight
+import kotlinx.css.gap
+import kotlinx.css.lineHeight
+import kotlinx.css.margin
+import kotlinx.css.opacity
 import kotlinx.css.padding
+import kotlinx.css.properties.lh
 import kotlinx.css.px
+import kotlinx.css.width
 
 internal fun buildSharedCss(): String = CssBuilder().apply {
 
@@ -262,6 +278,9 @@ internal fun buildSharedCss(): String = CssBuilder().apply {
     rule(".pg-section__body") {
         put("max-width", "var(--content-w)")
         put("width", "100%")
+        display = Display.flex
+        flexDirection = FlexDirection.column
+        gap = 40.px
     }
 
     // ── Tag pill ───────────────────────────────────────────────────────────
@@ -360,7 +379,7 @@ internal fun buildSharedCss(): String = CssBuilder().apply {
         put("width", "100%")
     }
 
-    rule(".btn-write") {
+    rule(".btn-pill") {
         put("display", "inline-flex")
         put("align-items", "center")
         put("gap", "12px")
@@ -370,7 +389,7 @@ internal fun buildSharedCss(): String = CssBuilder().apply {
         put("background", "var(--c-ink)")
         put("color", "#fff")
         put("font-size", "20px")
-        put("font-weight", "500")
+        put("font-weight", "400")
         put("line-height", "28px")
         put("white-space", "nowrap")
         put("flex-shrink", "0")
@@ -379,11 +398,11 @@ internal fun buildSharedCss(): String = CssBuilder().apply {
         put("transition", "opacity 0.15s ease")
     }
 
-    rule(".btn-write:hover") {
+    rule(".btn-pill:hover") {
         put("opacity", "0.75")
     }
 
-    rule(".btn-write img") {
+    rule(".btn-pill img") {
         put("width", "24px")
         put("height", "24px")
         put("flex-shrink", "0")
@@ -490,6 +509,76 @@ internal fun buildSharedCss(): String = CssBuilder().apply {
         put("line-height", "28px")
         put("color", "var(--c-ink)")
         put("white-space", "nowrap")
+    }
+
+    // ── Button pill: case icon ──────────────────────────────────────────
+    rule(".btn-pill__icon") {
+        put("display", "block")
+        put("width", "12px")
+        put("height", "12px")
+        put("flex-shrink", "0")
+        put("background-color", "#fff")
+        put("-webkit-mask-image", "url('/vector/case-arrow.svg')")
+        put("mask-image", "url('/vector/case-arrow.svg')")
+        put("mask-size", "contain")
+        put("mask-repeat", "no-repeat")
+        put("mask-position", "center")
+    }
+
+    // ── Image block ────────────────────────────────────────────────────
+    rule(".case-img-block") {
+        put("width", "100%")
+        put("min-height", "400px")
+        put("border-radius", "40px")
+        put("overflow", "hidden")
+        put("display", "flex")
+        put("align-items", "center")
+        put("justify-content", "center")
+        put("position", "relative")
+    }
+
+    rule(".mobile-image") {
+        padding = Padding(40.px)
+    }
+
+    rule(".web-image") {
+        padding = Padding(60.px)
+    }
+
+    rule(".case-img-block__img") {
+        put("width", "100%")
+        put("height", "100%")
+        put("object-fit", "contain")
+        put("border-radius", "12px")
+    }
+
+    rule(".no-padding") {
+        padding = Padding(0.px)
+    }
+
+    rule(".case-img-description") {
+        margin = Margin(top = 24.px)
+        opacity = .6
+        width = 800.px
+        fontSize = 20.px
+        lineHeight = 28.px.lh
+        color = Color("#071B31")
+        fontWeight = FontWeight.normal
+    }
+
+    rule(".case-img-block--placeholder") {
+        put("flex-direction", "column")
+        put("align-items", "stretch")
+        put("justify-content", "flex-start")
+        put("gap", "24px")
+        put("padding", "40px")
+    }
+
+    rule(".case-img-block__ph-row") {
+        put("height", "204px")
+        put("background", "rgba(7, 27, 49, 0.06)")
+        put("border-radius", "12px")
+        put("flex-shrink", "0")
     }
 
     // ── 404 page ───────────────────────────────────────────────────────────

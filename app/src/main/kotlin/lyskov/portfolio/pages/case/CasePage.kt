@@ -11,18 +11,29 @@ import kotlinx.html.span
 import kotlinx.html.ul
 import lyskov.portfolio.components.externalLinkCard
 import lyskov.portfolio.components.goodbyeSection
+import lyskov.portfolio.components.imageBlock
 import lyskov.portfolio.components.storyCard
 import lyskov.portfolio.components.tagRow
 import lyskov.portfolio.layout.renderPage
+import lyskov.portfolio.model.Case
 import lyskov.portfolio.model.CaseContent
 import lyskov.portfolio.model.CaseSection
 import lyskov.portfolio.model.ExternalLink
 import lyskov.portfolio.model.Page
+import lyskov.portfolio.model.Section
+import lyskov.portfolio.registry.ContentLoader
 
 object CasePage {
 
-    fun render(content: CaseContent, page: Page): String =
-        renderPage(page, breadcrumb = content.breadcrumb) {
+    private fun findCase(urlPath: String) =
+        ContentLoader.content.sections
+            .filterIsInstance<Section.CaseList>()
+            .flatMap { it.items }
+            .firstOrNull { it.href == urlPath }
+
+    fun render(content: CaseContent, page: Page): String {
+        val mainCase = findCase(page.urlPath)
+        return renderPage(page, breadcrumb = content.breadcrumb) {
             div(classes = "case-page") {
                 div(classes = "case-page__body") {
 
@@ -31,7 +42,7 @@ object CasePage {
                         content.headInfo.description, content.headInfo.links, content.headInfo.warning,
                     )
 
-                    content.sections.forEach { renderSection(it) }
+                    content.sections.forEach { renderSection(it, mainCase) }
 
                     // Back to main link
                     a(href = "/", classes = "case-ext-link case-back-link") {
@@ -44,6 +55,7 @@ object CasePage {
                 goodbyeSection(content.goodbye)
             }
         }
+    }
 
     // ── Head info ─────────────────────────────────────────────────────────────
 
@@ -76,49 +88,18 @@ object CasePage {
 
     // ── Sections ──────────────────────────────────────────────────────────────
 
-    private fun FlowContent.renderSection(section: CaseSection) {
+    private fun FlowContent.renderSection(section: CaseSection, mainCase: Case?) {
         when (section) {
-            is CaseSection.ImageBlock -> renderImageBlock(section)
+            is CaseSection.ImageBlock -> {
+                if (section.image.isEmpty() && section.placeholders.isEmpty() && mainCase != null) {
+                    imageBlock(mainCase)
+                } else {
+                    imageBlock(section)
+                }
+            }
             is CaseSection.TextSection -> renderTextSection(section)
             is CaseSection.StepList -> renderStepList(section)
             is CaseSection.CardGrid -> renderCardGrid(section)
-        }
-    }
-
-    private fun FlowContent.renderImageBlock(block: CaseSection.ImageBlock) {
-        val bgStyle = if (block.accent.isNotEmpty())
-            "background: linear-gradient(180deg, var(--c-card) 0%, ${block.accent}1F 100%);"
-        else
-            "background: var(--c-card);"
-
-        if (block.placeholders.isNotEmpty()) {
-            div(classes = "case-img-block case-img-block--placeholder") {
-                attributes["style"] = bgStyle
-                block.placeholders.forEach { w ->
-                    div(classes = "case-img-block__ph-row") {
-                        attributes["style"] = "width: $w;"
-                    }
-                }
-            }
-        } else {
-            val paddingClass = if (!block.innerPadding) "no-padding" else ""
-            div {
-                div(classes = "case-img-block $paddingClass") {
-                    attributes["style"] = bgStyle
-                    if (block.image.isNotEmpty()) {
-                        img(src = block.image, alt = "", classes = "case-img-block__img")
-                    } else {
-                        div {
-                            attributes["style"] = "width: 680px; height: 1200px;"
-                        }
-                    }
-                }
-                if (!block.description.isNullOrEmpty()) {
-                    p(classes = "case-img-description") {
-                        +block.description
-                    }
-                }
-            }
         }
     }
 

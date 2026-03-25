@@ -177,54 +177,7 @@ internal fun buildCaseCss(): String = CssBuilder().apply {
         put("align-self", "flex-start")
     }
 
-    // ── Image block ────────────────────────────────────────────────────────
-    rule(".case-img-block") {
-        put("width", "100%")
-        put("min-height", "400px")
-        put("border-radius", "40px")
-        put("overflow", "hidden")
-        put("display", "flex")
-        put("align-items", "center")
-        put("justify-content", "center")
-        put("position", "relative")
-        padding = Padding(60.px)
-    }
-
-    rule(".case-img-block__img") {
-        put("width", "100%")
-        put("height", "100%")
-        put("object-fit", "cover")
-        put("border-radius", "12px")
-    }
-
-    rule(".no-padding") {
-        padding = Padding(0.px)
-    }
-
-    rule(".case-img-description") {
-        margin = Margin(top = 24.px)
-        opacity = .6
-        width = 800.px
-        fontSize = 20.px
-        lineHeight = 28.px.lh
-        color = Color("#071B31")
-        fontWeight = FontWeight.normal
-    }
-
-    rule(".case-img-block--placeholder") {
-        put("flex-direction", "column")
-        put("align-items", "stretch")
-        put("justify-content", "flex-start")
-        put("gap", "24px")
-        put("padding", "40px")
-    }
-
-    rule(".case-img-block__ph-row") {
-        put("height", "204px")
-        put("background", "rgba(7, 27, 49, 0.06)")
-        put("border-radius", "12px")
-        put("flex-shrink", "0")
-    }
+    // ── Image block (shared styles live in SharedCss) ──────────────────────
 
     // ── Text section ───────────────────────────────────────────────────────
     rule(".case-text-section") {

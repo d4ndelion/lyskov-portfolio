@@ -52,6 +52,7 @@ sealed class CaseSection {
         /** If non-empty, renders placeholder rows instead of an image (widths as CSS values, e.g. "100%", "59%"). */
         val placeholders: List<String> = emptyList(),
         val description: String? = null,
+        val isMobileCase: Boolean = false,
     ) : CaseSection()
 
     @Serializable

@@ -1,10 +1,18 @@
 package lyskov.portfolio.layout
 
 import kotlinx.css.CssBuilder
+import kotlinx.css.Display
+import kotlinx.css.FlexDirection
+import kotlinx.css.JustifyContent
 import kotlinx.css.ObjectFit
 import kotlinx.css.borderRadius
+import kotlinx.css.display
+import kotlinx.css.flexDirection
 import kotlinx.css.height
+import kotlinx.css.justifyContent
 import kotlinx.css.objectFit
+import kotlinx.css.pc
+import kotlinx.css.pct
 import kotlinx.css.px
 import kotlinx.css.width
 
@@ -180,12 +188,18 @@ internal fun buildMainCss(): String = CssBuilder().apply {
         put("opacity", "48%")
         put("height", "60px")
         put("margin-top", "36px")
-        put("clip-path", "polygon( 0% 65.574%,0% 65.574%,0.054% 54.937%,0.211% 44.847%,0.462% 35.439%,0.798% 26.847%,1.212% 19.206%,1.694% 12.652%,2.236% 7.319%,2.829% 3.343%,3.466% 0.858%,4.137% 0%,92.327% 0%,92.327% 0%,92.666% 0.22%,93% 0.874%,93.329% 1.95%,93.649% 3.44%,93.961% 5.331%,94.262% 7.614%,94.551% 10.279%,94.826% 13.314%,95.086% 16.711%,95.329% 20.457%,100% 98.556%,0% 98.556%,0% 65.574% )")
+        put(
+            "clip-path",
+            "polygon( 0% 65.574%,0% 65.574%,0.054% 54.937%,0.211% 44.847%,0.462% 35.439%,0.798% 26.847%,1.212% 19.206%,1.694% 12.652%,2.236% 7.319%,2.829% 3.343%,3.466% 0.858%,4.137% 0%,92.327% 0%,92.327% 0%,92.666% 0.22%,93% 0.874%,93.329% 1.95%,93.649% 3.44%,93.961% 5.331%,94.262% 7.614%,94.551% 10.279%,94.826% 13.314%,95.086% 16.711%,95.329% 20.457%,100% 98.556%,0% 98.556%,0% 65.574% )"
+        )
     }
 
     rule(".case-card__body") {
         put("z-index", "1")
-        put("clip-path", "polygon(97.059% 5.964%, 97.059% 5.964%, 97.536% 6.016%, 97.988% 6.167%, 98.41% 6.408%, 98.796% 6.731%, 99.139% 7.129%, 99.432% 7.592%, 99.672% 8.113%, 99.85% 8.684%, 99.962% 9.295%, 100% 9.94%, 100% 96.024%, 100% 96.024%, 99.962% 96.669%, 99.85% 97.281%, 99.672% 97.851%, 99.432% 98.372%, 99.139% 98.835%, 98.796% 99.233%, 98.41% 99.556%, 97.988% 99.797%, 97.536% 99.948%, 97.059% 100%, 2.941% 100%, 2.941% 100%, 2.464% 99.948%, 2.012% 99.797%, 1.59% 99.556%, 1.204% 99.233%, 0.861% 98.835%, 0.567% 98.372%, 0.328% 97.851%, 0.15% 97.281%, 0.038% 96.669%, 0% 96.024%, 0% 3.976%, 0% 3.976%, 0.038% 3.331%, 0.15% 2.719%, 0.328% 2.149%, 0.567% 1.628%, 0.861% 1.165%, 1.204% 0.767%, 1.59% 0.444%, 2.012% 0.203%, 2.464% 0.052%, 2.941% 0%, 30.391% 0%, 30.391% 0%, 30.731% 0.018%, 31.067% 0.07%, 31.397% 0.157%, 31.721% 0.277%, 32.037% 0.43%, 32.343% 0.615%, 32.638% 0.832%, 32.921% 1.078%, 33.19% 1.354%, 33.445% 1.66%, 36.765% 5.964%, 97.059% 5.964%)")
+        put(
+            "clip-path",
+            "polygon(97.059% 5.964%, 97.059% 5.964%, 97.536% 6.016%, 97.988% 6.167%, 98.41% 6.408%, 98.796% 6.731%, 99.139% 7.129%, 99.432% 7.592%, 99.672% 8.113%, 99.85% 8.684%, 99.962% 9.295%, 100% 9.94%, 100% 96.024%, 100% 96.024%, 99.962% 96.669%, 99.85% 97.281%, 99.672% 97.851%, 99.432% 98.372%, 99.139% 98.835%, 98.796% 99.233%, 98.41% 99.556%, 97.988% 99.797%, 97.536% 99.948%, 97.059% 100%, 2.941% 100%, 2.941% 100%, 2.464% 99.948%, 2.012% 99.797%, 1.59% 99.556%, 1.204% 99.233%, 0.861% 98.835%, 0.567% 98.372%, 0.328% 97.851%, 0.15% 97.281%, 0.038% 96.669%, 0% 96.024%, 0% 3.976%, 0% 3.976%, 0.038% 3.331%, 0.15% 2.719%, 0.328% 2.149%, 0.567% 1.628%, 0.861% 1.165%, 1.204% 0.767%, 1.59% 0.444%, 2.012% 0.203%, 2.464% 0.052%, 2.941% 0%, 30.391% 0%, 30.391% 0%, 30.731% 0.018%, 31.067% 0.07%, 31.397% 0.157%, 31.721% 0.277%, 32.037% 0.43%, 32.343% 0.615%, 32.638% 0.832%, 32.921% 1.078%, 33.19% 1.354%, 33.445% 1.66%, 36.765% 5.964%, 97.059% 5.964%)"
+        )
         put("box-shadow", "inset 0 -4px 12px #f8fafb")
     }
 
@@ -254,47 +268,7 @@ internal fun buildMainCss(): String = CssBuilder().apply {
         put("align-items", "flex-start")
     }
 
-    // ── Button: "Смотреть кейс" ────────────────────────────────────────────
-    rule(".btn-case") {
-        put("display", "inline-flex")
-        put("align-items", "center")
-        put("gap", "12px")
-        put("height", "48px")
-        put("padding", "0 20px 0 16px")
-        put("border-radius", "24px")
-        put("background", "#fff")
-        put("font-size", "20px")
-        put("font-weight", "500")
-        put("line-height", "28px")
-        put("color", "var(--c-ink)")
-        put("cursor", "pointer")
-        put("text-decoration", "none")
-        put("flex-shrink", "0")
-        put("transition", "background 0.15s ease, color 0.15s ease")
-    }
-
-    rule(".btn-case:hover") {
-        put("background", "var(--c-ink)")
-        put("color", "#fff")
-    }
-
-    rule(".btn-case__icon") {
-        put("display", "block")
-        put("width", "12px")
-        put("height", "12px")
-        put("flex-shrink", "0")
-        put("background-color", "var(--c-ink)")
-        put("-webkit-mask-image", "url('/vector/case-arrow.svg')")
-        put("mask-image", "url('/vector/case-arrow.svg')")
-        put("mask-size", "contain")
-        put("mask-repeat", "no-repeat")
-        put("mask-position", "center")
-        put("transition", "background-color 0.15s ease")
-    }
-
-    rule(".btn-case:hover .btn-case__icon") {
-        put("background-color", "#fff")
-    }
+    // ── Button: "Смотреть кейс" (shared styles live in SharedCss) ──────────
 
     // ── Extra cases ────────────────────────────────────────────────────────
     rule(".extra-body") {
@@ -320,6 +294,7 @@ internal fun buildMainCss(): String = CssBuilder().apply {
     }
 
     rule(".mini-card") {
+        height = 800.px
         put("background", "var(--c-card)")
         put("display", "flex")
         put("flex-direction", "column")
@@ -330,6 +305,13 @@ internal fun buildMainCss(): String = CssBuilder().apply {
         put("border-radius", "40px")
         put("flex", "1")
         put("position", "relative")
+    }
+
+    rule(".mini-card__content") {
+        display = Display.flex
+        justifyContent = JustifyContent.spaceBetween
+        height = 100.pct
+        flexDirection = FlexDirection.column
     }
 
     rule(".mini-card::after") {

@@ -57,7 +57,8 @@
     {
       "type": "imageBlock",
       "image": "/image/among-own-screens1.png",
-      "accent": ""
+      "accent": "",
+      "isMobileCase": true
     },
     {
       "type": "textSection",
@@ -112,7 +113,8 @@
     {
       "type": "imageBlock",
       "image": "/image/among-own-screens2.png",
-      "accent": ""
+      "accent": "",
+      "isMobileCase": true
     },
     {
       "type": "textSection",
@@ -165,17 +167,20 @@
     {
       "type": "imageBlock",
       "image": "/image/among-own-screens3.png",
-      "accent": ""
+      "accent": "",
+      "isMobileCase": true
     },
     {
       "type": "imageBlock",
       "image": "/image/among-own-screens4.png",
-      "accent": ""
+      "accent": "",
+      "isMobileCase": true
     },
     {
       "type": "imageBlock",
       "image": "/image/among-own-screens6.png",
-      "accent": ""
+      "accent": "",
+      "isMobileCase": true
     },
     {
       "type": "textSection",
@@ -202,7 +207,8 @@
     {
       "type": "imageBlock",
       "image": "/image/among-own-screens7.png",
-      "accent": ""
+      "accent": "",
+      "isMobileCase": true
     },
     {
       "type": "textSection",
@@ -228,7 +234,8 @@
     {
       "type": "imageBlock",
       "image": "/image/among-own-screens5.png",
-      "accent": ""
+      "accent": "",
+      "isMobileCase": true
     },
     {
       "type": "textSection",

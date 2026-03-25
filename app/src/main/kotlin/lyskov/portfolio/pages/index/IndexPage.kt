@@ -9,10 +9,12 @@ import kotlinx.html.p
 import kotlinx.html.section
 import kotlinx.html.span
 import lyskov.portfolio.components.goodbyeSection
+import lyskov.portfolio.components.imageBlock
 import lyskov.portfolio.components.tagRow
 import lyskov.portfolio.layout.renderPage
 import lyskov.portfolio.model.About
 import lyskov.portfolio.model.Case
+import lyskov.portfolio.model.CaseSection
 import lyskov.portfolio.model.ExtraCase
 import lyskov.portfolio.model.Section
 import lyskov.portfolio.model.VideoButton
@@ -95,41 +97,28 @@ object IndexPage {
     private fun FlowContent.renderCase(case: Case) {
         section(classes = "pg-section") {
             div(classes = "pg-section__body") {
-                div(classes = "case-body") {
-                    div(classes = "case-card") {
-                        div(classes = "case-card__back") {
-                            attributes["style"] = "background: ${case.color};"
+                imageBlock(case)
+                div(classes = "case-card__info") {
+                    div(classes = "case-card__title-desc") {
+                        p(classes = "case-card__title") {
+                            attributes["style"] = "color: ${case.textColor};"
+                            +case.title
                         }
-                        div(classes = "case-card__body") {
-                            attributes["style"] =
-                                "background: linear-gradient(180deg, ${case.color} 0%, ${case.colorEnd} 100%);"
+                        p(classes = "case-card__desc") {
+                            attributes["style"] = "color: ${case.textColor};"
+                            +case.description
                         }
-                        if (case.cover.isNotEmpty()) {
-                            img(src = case.cover, alt = "", classes = "case-card__cover")
-                        }
-                        div(classes = "case-card__info") {
-                            div(classes = "case-card__title-desc") {
-                                p(classes = "case-card__title") {
-                                    attributes["style"] = "color: ${case.textColor};"
-                                    +case.title
-                                }
-                                p(classes = "case-card__desc") {
-                                    attributes["style"] = "color: ${case.textColor};"
-                                    +case.description
+                    }
+                    div(classes = "case-card__bottom") {
+                        div(classes = "case-card__btn-slot") {
+                            if (case.href.isNotEmpty()) {
+                                a(href = case.href, classes = "btn-pill") {
+                                    span(classes = "btn-pill__icon") {}
+                                    span { +"Смотреть кейс" }
                                 }
                             }
-                            div(classes = "case-card__bottom") {
-                                div(classes = "case-card__btn-slot") {
-                                    if (case.href.isNotEmpty()) {
-                                        a(href = case.href, classes = "btn-case") {
-                                            span(classes = "btn-case__icon") {}
-                                            span { +"Смотреть кейс" }
-                                        }
-                                    }
-                                }
-                                tagRow(case.tags, "case-card__tags", Color.white)
-                            }
                         }
+                        tagRow(case.tags, "case-card__tags", Color("#EBEDEF").withAlpha(.4))
                     }
                 }
             }
@@ -160,20 +149,22 @@ object IndexPage {
                             if (ec.image.isNotEmpty()) {
                                 img(src = ec.image, alt = ec.title, classes = "mini-card__img")
                             }
-                            div(classes = "mini-card__bottom") {
-                                div(classes = "mini-card__text") {
-                                    p(classes = "mini-card__title") { +ec.title }
-                                    p(classes = "mini-card__desc") { +ec.description }
-                                }
-                                div(classes = "mini-card__footer") {
+                            div(classes = "mini-card__content") {
+                                div(classes = "mini-card__bottom") {
+                                    div(classes = "mini-card__text") {
+                                        p(classes = "mini-card__title") { +ec.title }
+                                        p(classes = "mini-card__desc") { +ec.description }
+                                    }
                                     if (ec.href.isNotEmpty()) {
-                                        a(href = ec.href, classes = "btn-case") {
-                                            span(classes = "btn-case__icon") {}
-                                            span { +"Подробнее" }
+                                        div(classes = "mini-card__footer") {
+                                            a(href = ec.href, classes = "btn-pill") {
+                                                span(classes = "btn-pill__icon") {}
+                                                span { +"Подробнее" }
+                                            }
                                         }
                                     }
-                                    span(classes = "tag") { +ec.year }
                                 }
+                                tagRow(tags = listOf(ec.year), color = Color.white.withAlpha(.6))
                             }
                         }
                     }

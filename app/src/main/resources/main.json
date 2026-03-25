@@ -43,36 +43,39 @@
           "description": "С нуля погрузился в сложный домен и спроектировал B2B-систему для ведения банкротства физических лиц. Получил крутой фидбек от пользователей и уложился в короткие сроки",
           "tags": ["2025", "LegalTech", "Web"],
           "href": "/cases/bfl/",
-          "cover": "",
+          "covers": ["/image/main-case-bfl1.png", "/image/main-case-bfl2.png", "/image/main-case-bfl3.png"],
           "color": "#E0F2E6",
-          "colorEnd": "#ebedef"
+          "colorEnd": "#ebedef",
+          "backgroundImage": "/image/background-bfl.png",
+          "slideInterval": 2000
         },
         {
           "title": "Спроектировал MVP приложения для бизнес-нетворкинга",
           "description": "Разработал концепцию, исследовал пользователей и спроектировал полноценный MVP мобильного приложения для деловых знакомств",
           "tags": ["2026", "Networking", "Mobile"],
           "href": "/cases/among-own/",
-          "cover": "",
+          "covers": [
+            "/image/main-case-among-own-1.png",
+            "/image/main-case-among-own-2.png",
+            "/image/main-case-among-own-3.png",
+            "/image/main-case-among-own-4.png",
+            "/image/main-case-among-own-5.png"
+          ],
           "color": "#F2E5E0",
-          "colorEnd": "#ebedef"
-        },
-        {
-          "title": "Дизайн система для Dispex Web",
-          "description": "Построил масштабируемую дизайн-систему для B2B веб-продукта в PropTech — от токенов до готовых компонентов",
-          "tags": ["2026", "PropTech", "Web"],
-          "href": "",
-          "cover": "",
-          "color": "#E0EBF2",
-          "colorEnd": "#ebedef"
+          "colorEnd": "#ebedef",
+          "backgroundImage": "/image/backround-among-own-case.png",
+          "isMobileCase": true,
+          "slideInterval": 1000
         },
         {
           "title": "Успешное тестовое в МТС Web Services",
           "description": "Проектировал интерфейс приглашения пользователей в проект для бигтеха. Получил положительные отзывы от пользователей и команды найма",
           "tags": ["2025", "Telecom", "Web"],
           "href": "/cases/mts/",
-          "cover": "",
+          "covers": ["/image/main-case-mts.png"],
           "color": "#F2E0E4",
-          "colorEnd": "#ebedef"
+          "colorEnd": "#ebedef",
+          "backgroundImage": "/image/background-mtc.png"
         }
       ]
     },
@@ -89,7 +92,7 @@
           "description": "Переработал экономику и баланс игры, добавил новые механики и встроил в неё множество наших с друзьями локальных мемов",
           "year": "2026",
           "href": "",
-          "image": ""
+          "image": "/image/main-monopoly.png"
         },
         {
           "title": "Выиграл в Хакатоне по разработке приложения",
@@ -105,7 +108,7 @@
       "about": {
         "subBadge": "ну а вообще...",
         "aboutPhotos": [
-          "/image/ilya-with-flowers.png", "/image/ilya-thinking.png", "/image/ilya-flower.png", "/image/ilya-cowboy.png"
+          "/image/ilya-with-flowers.png", "/image/ilya-thinking.png", "/image/ilya-flower-blurred.png", "/image/ilya-cowboy.png"
         ],
         "nick": "я Илья, здарова!",
         "nickSub": "(такой ник можно встретить во всех моих соцсетях)",

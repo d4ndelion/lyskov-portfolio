@@ -25,7 +25,7 @@ fun FlowContent.goodbyeSection(goodbye: Goodbye) {
                 div(classes = "goodbye-btn-row") {
                     val tgLink = header.socialMediaLinks.telegram.link
                     if (tgLink.isNotEmpty()) {
-                        a(href = tgLink, classes = "btn-write", target = "_blank") {
+                        a(href = tgLink, classes = "btn-pill", target = "_blank") {
                             attributes["rel"] = "noopener"
                             img(src = "/vector/telegram-icon-white.svg", alt = "")
                             span { +"Написать" }
