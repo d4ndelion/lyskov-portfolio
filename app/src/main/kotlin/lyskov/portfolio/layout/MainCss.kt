@@ -4,17 +4,12 @@ import kotlinx.css.CssBuilder
 import kotlinx.css.Display
 import kotlinx.css.FlexDirection
 import kotlinx.css.JustifyContent
-import kotlinx.css.ObjectFit
-import kotlinx.css.borderRadius
 import kotlinx.css.display
 import kotlinx.css.flexDirection
 import kotlinx.css.height
 import kotlinx.css.justifyContent
-import kotlinx.css.objectFit
-import kotlinx.css.pc
 import kotlinx.css.pct
 import kotlinx.css.px
-import kotlinx.css.width
 
 internal fun buildMainCss(): String = CssBuilder().apply {
 
@@ -218,7 +213,7 @@ internal fun buildMainCss(): String = CssBuilder().apply {
     rule(".case-card__info") {
         put("display", "flex")
         put("flex-direction", "column")
-        put("gap", "40px")
+        put("gap", "24px")
         put("align-items", "flex-start")
         put("width", "100%")
         put("position", "relative")
