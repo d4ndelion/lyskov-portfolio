@@ -50,6 +50,7 @@ sealed class Section {
         val role: String,
         val experience: String,
         val bio: String,
+        val tags: List<String>,
         val videoButton: VideoButton,
     ) : Section()
 

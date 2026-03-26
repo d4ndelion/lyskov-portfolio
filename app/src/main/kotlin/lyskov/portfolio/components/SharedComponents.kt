@@ -13,10 +13,15 @@ import lyskov.portfolio.model.StoryCard
 // ─── Tags ─────────────────────────────────────────────────────────────────────
 
 /** Renders a row of tags. First tag is accented, rest are muted. */
-fun FlowContent.tagRow(tags: List<String>, classes: String = "tag-row", color: Color? = null) {
+fun FlowContent.tagRow(
+    tags: List<String>,
+    classes: String = "tag-row",
+    color: Color? = null,
+    allMuted: Boolean = true,
+) {
     div(classes = classes) {
         tags.forEachIndexed { i, label ->
-            span(classes = if (i == 0) "tag" else "tag tag--muted") {
+            span(classes = if (i == 0 && !allMuted) "tag" else "tag tag--muted") {
                 if (color != null) {
                     attributes["style"] = "background: ${color.value};"
                 }

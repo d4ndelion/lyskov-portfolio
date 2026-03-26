@@ -19,7 +19,7 @@
       }
     },
     "emailLink": "mailto:mr.ansuz@gmail.com",
-    "cvLink": ""
+    "cvLink": "https://drive.google.com/file/d/1n12l6Ng1bnv4_b_6buj0QFskpAXOinkP/view"
   },
   "sections": [
     {
@@ -28,7 +28,14 @@
       "name": "Илья Лысков",
       "role": "Продуктовый дизайнер",
       "experience": "5 лет опыта",
-      "bio": "Проектирую интерфейсы с заботой о пользователе, выгодой для бизнеса, и понятной разработке",
+      "bio": "Проектирую высоконагруженные интерфейсы с заботой о пользователе",
+      "tags": [
+        "Desktop",
+        "Web",
+        "Mobile",
+        "B2B",
+        "B2C"
+      ],
       "videoButton": {
         "label": "Рассказ о себе",
         "duration": "0:40",
@@ -40,10 +47,18 @@
       "items": [
         {
           "title": "SAAS-система для ведения процессов банкротства BFL",
-          "description": "С нуля погрузился в сложный домен и спроектировал B2B-систему для ведения банкротства физических лиц. Получил крутой фидбек от пользователей и уложился в короткие сроки",
-          "tags": ["2025", "LegalTech", "Web"],
+          "description": "С нуля погрузился в сложный домен и спроектировал B2B-систему для ведения банкротства физических лиц. Получил крутой фидбек от пользователей, упростил сценарии и уложился в короткие сроки",
+          "tags": [
+            "2024",
+            "LegalTech",
+            "Web"
+          ],
           "href": "/cases/bfl/",
-          "covers": ["/image/main-case-bfl1.png", "/image/main-case-bfl2.png", "/image/main-case-bfl3.png"],
+          "covers": [
+            "/image/main-case-bfl1.png",
+            "/image/main-case-bfl2.png",
+            "/image/main-case-bfl3.png"
+          ],
           "color": "#E0F2E6",
           "colorEnd": "#ebedef",
           "backgroundImage": "/image/background-bfl.png",
@@ -51,8 +66,12 @@
         },
         {
           "title": "Спроектировал MVP приложения для бизнес-нетворкинга",
-          "description": "Разработал концепцию, исследовал пользователей и спроектировал полноценный MVP мобильного приложения для деловых знакомств",
-          "tags": ["2026", "Networking", "Mobile"],
+          "description": "Объединил частные сценарии для нетворкинга в одном месте: поиск исполнителей, организация мероприятий, обмен контактами. \nПриложение опубликовано в RuStore",
+          "tags": [
+            "2026",
+            "Networking",
+            "Mobile"
+          ],
           "href": "/cases/among-own/",
           "covers": [
             "/image/main-case-among-own-1.png",
@@ -69,10 +88,16 @@
         },
         {
           "title": "Успешное тестовое в МТС Web Services",
-          "description": "Проектировал интерфейс приглашения пользователей в проект для бигтеха. Получил положительные отзывы от пользователей и команды найма",
-          "tags": ["2025", "Telecom", "Web"],
+          "description": "Проектировал интерфейс для приглашения пользователей в облачный проект бигтеха. Получил положительные отзывы в пользовательских тестах и высокую оценку от команды найма",
+          "tags": [
+            "2025",
+            "Telecom",
+            "Web"
+          ],
           "href": "/cases/mts/",
-          "covers": ["/image/main-case-mts.png"],
+          "covers": [
+            "/image/main-case-mts.png"
+          ],
           "color": "#F2E0E4",
           "colorEnd": "#ebedef",
           "backgroundImage": "/image/background-mtc.png"
@@ -108,20 +133,22 @@
       "about": {
         "subBadge": "ну а вообще...",
         "aboutPhotos": [
-          "/image/ilya-with-flowers.png", "/image/ilya-thinking.png", "/image/ilya-flower-blurred.png", "/image/ilya-cowboy.png"
+          "/image/ilya-with-flowers.png",
+          "/image/ilya-thinking.png",
+          "/image/ilya-flower-blurred.png",
+          "/image/ilya-cowboy.png"
         ],
         "nick": "я Илья, здарова!",
-        "nickSub": "(такой ник можно встретить во всех моих соцсетях)",
+        "nickSub": "(ник, который я использую во всех соцсетях)",
         "paragraphs": [
-          "Выписываю свои наблюдения \nв tg-посты, снимался в кулинарных видео на yt, очень люблю фоткаться",
-          "Завайбкодил бота"
+          "Снимался в кулинарных видео на yt, записываю свои наблюдения в tg-посты, очень люблю фоткаться, \nпробую вайбкодить"
         ],
-        "footnote": "На форуме сервера по GTA San Andreas Multiplayer был дизайнером графики всего сервера (ну, это типо было круто!)"
+        "footnote": ""
       },
       "goodbye": {
-        "goodbyeGif" : "/gif/cat-dance.gif",
-        "heading": "cпасибо за уделенное время!",
-        "sub": "буду рад посотрудничать с вами",
+        "goodbyeGif": "/gif/cat-dance.gif",
+        "heading": "Буду рад сотрудничеству!",
+        "sub": "спасибо ♡( ◡‿◡ )♡",
         "email": "mr.ansuz@gmail.com",
         "telegramIcon": "/vector/telegram-icon-white.svg"
       }

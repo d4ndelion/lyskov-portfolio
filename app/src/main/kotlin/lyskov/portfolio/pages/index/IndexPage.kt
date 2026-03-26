@@ -14,7 +14,6 @@ import lyskov.portfolio.components.tagRow
 import lyskov.portfolio.layout.renderPage
 import lyskov.portfolio.model.About
 import lyskov.portfolio.model.Case
-import lyskov.portfolio.model.CaseSection
 import lyskov.portfolio.model.ExtraCase
 import lyskov.portfolio.model.Section
 import lyskov.portfolio.model.VideoButton
@@ -35,6 +34,7 @@ object IndexPage {
                     role = section.role,
                     experience = section.experience,
                     bio = section.bio,
+                    tags = section.tags,
                     videoButton = section.videoButton,
                 )
 
@@ -57,6 +57,7 @@ object IndexPage {
         role: String,
         experience: String,
         bio: String,
+        tags: List<String>,
         videoButton: VideoButton,
     ) {
         section(classes = "pg-section") {
@@ -74,6 +75,7 @@ object IndexPage {
                             }
                         }
                         p(classes = "hero__bio") { +bio }
+                        tagRow(tags, allMuted = true)
                     }
                     if (videoButton.href.isNotEmpty()) {
                         a(href = videoButton.href, classes = "hero__video-btn") {
