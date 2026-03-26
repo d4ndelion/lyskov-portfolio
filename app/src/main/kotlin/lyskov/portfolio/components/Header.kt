@@ -102,7 +102,11 @@ private fun FlowContent.renderRightSection(
             }
             img(src = "/vector/star-divider.svg", alt = "", classes = "site-header__divider-icon")
             if (cvLink.isNotEmpty()) {
-                a(href = cvLink, classes = "site-header__link") { +"CV" }
+                a(href = cvLink, classes = "site-header__link") {
+                    attributes["target"] = "_blank"
+                    attributes["rel"] = "noopener noreferrer"
+                    +"CV"
+                }
             } else {
                 span(classes = "site-header__link site-header__link--muted") { +"CV" }
             }
