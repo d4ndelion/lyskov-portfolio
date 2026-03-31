@@ -25,9 +25,11 @@ fun FlowContent.siteHeader() {
                 }
             }
 
-            renderRightSection(h.socialMediaLinks.telegram.link, h.socialMediaLinks.linkedin.link,
+            renderRightSection(
+                h.socialMediaLinks.telegram.link, h.socialMediaLinks.linkedin.link,
                 h.socialMediaLinks.max.link, h.socialMediaLinks.max.icon,
-                h.emailLink, h.cvLink)
+                h.emailLink, h.cvLink
+            )
         }
     }
 }
@@ -54,9 +56,11 @@ fun FlowContent.caseHeader(breadcrumb: String) {
                 }
             }
 
-            renderRightSection(h.socialMediaLinks.telegram.link, h.socialMediaLinks.linkedin.link,
+            renderRightSection(
+                h.socialMediaLinks.telegram.link, h.socialMediaLinks.linkedin.link,
                 h.socialMediaLinks.max.link, h.socialMediaLinks.max.icon,
-                h.emailLink, h.cvLink)
+                h.emailLink, h.cvLink
+            )
         }
     }
 }
@@ -98,7 +102,10 @@ private fun FlowContent.renderRightSection(
         span(classes = "site-header__sep") { +"/" }
         div(classes = "site-header__links") {
             if (emailLink.isNotEmpty()) {
-                a(href = emailLink, classes = "site-header__link") { +"Email" }
+                a(href = "", classes = "site-header__link") {
+                    attributes["onclick"] = "copyEmail('${emailLink}'); return false;"
+                    +"Email"
+                }
             }
             img(src = "/vector/star-divider.svg", alt = "", classes = "site-header__divider-icon")
             if (cvLink.isNotEmpty()) {
